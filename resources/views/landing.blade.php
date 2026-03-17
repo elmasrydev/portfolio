@@ -686,6 +686,153 @@
     .badge-primary { background: var(--cyan); color: var(--navy); }
     .badge-secondary { background: rgba(255,255,255,0.08); color: var(--muted); }
 
+    /* ─── PRESENCE MAP (from landing-2) ─── */
+    .map-section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .map-subtitle {
+      font-family: 'Lexend', sans-serif;
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 540px;
+      margin: 16px auto 0;
+      line-height: 1.7;
+      text-align: center;
+    }
+    .world-map-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 56px auto 0;
+      padding: 0 0px;
+      aspect-ratio: 16/7;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      background: #040c18;
+    }
+    .world-map-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .country-path {
+      fill: rgba(0,180,216,0.07);
+      stroke: rgba(0,180,216,0.2);
+      stroke-width: 0.5px;
+      transition: fill 0.3s;
+    }
+    .country-highlighted {
+      fill: rgba(0,180,216,0.22);
+      stroke: rgba(0,180,216,0.75);
+      stroke-width: 1.2px;
+    }
+    .map-graticule {
+      fill: none;
+      stroke: rgba(0,180,216,0.07);
+      stroke-width: 0.5px;
+    }
+    .map-sphere {
+      fill: #040c18;
+    }
+    /* Flag pins */
+    #mapPins {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .flag-pin {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: all;
+      cursor: pointer;
+      animation: pinDrop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .flag-pin:nth-child(1) { animation-delay: 0.10s; }
+    .flag-pin:nth-child(2) { animation-delay: 0.20s; }
+    .flag-pin:nth-child(3) { animation-delay: 0.30s; }
+    .flag-pin:nth-child(4) { animation-delay: 0.40s; }
+    .flag-pin:nth-child(5) { animation-delay: 0.50s; }
+    .flag-pin:nth-child(6) { animation-delay: 0.60s; }
+    @keyframes pinDrop {
+      from { transform: translate(-50%, -170%); opacity: 0; }
+      to   { transform: translate(-50%, -100%); opacity: 1; }
+    }
+
+    .pin-body {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 2px 12px rgba(0,180,216,0.45), 0 2px 6px rgba(0,0,0,0.5);
+      background: #1e2d45;
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .pin-body img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .pin-tip {
+      width: 2px;
+      height: 10px;
+      background: var(--cyan);
+      border-radius: 0 0 2px 2px;
+    }
+    .pin-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 6px rgba(0,180,216,0.9);
+      margin-top: -1px;
+    }
+    .flag-pin:hover .pin-body {
+      transform: scale(1.12) translateY(-2px);
+      box-shadow: 0 0 20px rgba(0,180,216,0.65), 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .flag-label {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: 'Lexend', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.3px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      background: rgba(8,15,30,0.9);
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+    }
+    .flag-pin:hover .flag-label { opacity: 1; }
+
+    /* Glow pulse on highlighted countries */
+    .pin-glow {
+      position: absolute;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,180,216,0.18) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      animation: glowPulse 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.3); }
+    }
+
     /* ─── CTA ─── */
     .cta {
       background: var(--navy-mid);
@@ -1725,24 +1872,33 @@
   </section>
 
   <!-- MARKETS -->
-  <section class="markets" id="markets">
-    <div class="reveal">
-      <div class="section-label">Where We Operate</div>
-      <h2 class="section-title">Regional <span class="accent">Presence.</span></h2>
-    </div>
-    <div class="markets-grid reveal" id="marketsGrid">
-      <!-- Static content removed, will be rendered by JS -->
-    </div>
-
+  <section class="markets" id="markets" style="padding: 100px 0; overflow:hidden;">
     <!-- D3 + TopoJSON for world map -->
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
-    <div style="max-width:1200px; margin:56px auto 0; padding:0 60px;">
-      <div class="world-map-wrap reveal" id="worldMapWrap" style="position: relative; width: 100%; aspect-ratio: 16/7; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: #040c18;">
-        <svg id="worldMapSvg" style="width: 100%; height: 100%; display: block;"></svg>
-        <div id="mapPins" style="position: absolute; inset: 0; pointer-events: none;"></div>
+    <!-- Header for Presence (landing-2 style) -->
+    <div class="map-section-inner reveal" style="text-align:center; margin-bottom:0;">
+      <div class="section-label" id="presenceLabel" style="justify-content:center;">Our Presence</div>
+      <h2 class="section-title" id="presenceTitle" style="text-align:center; max-width:none;">6 Markets. One <span class="accent">standard.</span></h2>
+      <p class="map-subtitle" id="presenceSubtitle">From Cairo to San Francisco — delivering technology infrastructure across the Middle East, North Africa, Europe, and the Americas.</p>
+    </div>
+
+    <!-- Map Container (Prescene) -->
+    <div style="max-width:1200px; margin:0 auto; padding:0 60px;">
+      <div class="world-map-wrap reveal" id="worldMapWrap">
+        <svg id="worldMapSvg"></svg>
+        <div id="mapPins"></div>
       </div>
+    </div>
+
+    <!-- Markets block (original landing style) -->
+    <div class="reveal" style="text-align:center; margin-top: 100px;">
+      <div class="section-label" style="justify-content:center;">Where We Operate</div>
+      <h2 class="section-title" style="text-align:center; max-width:none;">Regional <span class="accent">Presence.</span></h2>
+    </div>
+    <div class="markets-row reveal" id="marketsGrid">
+      <!-- Rendered by JS -->
     </div>
   </section>
 

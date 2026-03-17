@@ -15,6 +15,7 @@ async function fetchPageData() {
         if (data.projects) renderProjects(data.projects);
         if (data.why_items) renderWhy(data.why_items);
         if (data.markets) renderMarkets(data.markets);
+        if (data.presence_setting) renderPresenceHeader(data.presence_setting);
         if (data.presence_locations) renderWorldMap(data.presence_locations);
         if (data.brands) renderBrands(data.brands);
         if (data.testimonials) renderTestimonials(data.testimonials);
@@ -132,6 +133,18 @@ function renderWhy(items) {
             </div>
         `).join('');
     }
+}
+
+function renderPresenceHeader(setting) {
+    const label = document.getElementById('presenceLabel');
+    const title = document.getElementById('presenceTitle');
+    const subtitle = document.getElementById('presenceSubtitle');
+
+    if (label && setting.label) label.textContent = setting.label;
+    if (title && setting.heading_count) {
+        title.innerHTML = `${setting.heading_count}. One <span class="accent">${setting.heading_standard || 'standard.'}</span>`;
+    }
+    if (subtitle && setting.subtitle) subtitle.textContent = setting.subtitle;
 }
 
 function renderMarkets(markets) {
