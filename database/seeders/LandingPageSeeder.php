@@ -8,6 +8,8 @@ use App\Models\HeroSetting;
 use App\Models\Market;
 use App\Models\MarqueeItem;
 use App\Models\PortfolioCta;
+use App\Models\PresenceLocation;
+use App\Models\PresenceSetting;
 use App\Models\ProcessStep;
 use App\Models\Project;
 use App\Models\ProjectTag;
@@ -246,5 +248,80 @@ class LandingPageSeeder extends Seeder
             'whatsapp_number' => '+21003636003',
             'whatsapp_url' => 'https://wa.me/21003636003',
         ]);
+
+        // 13. Presence Settings
+        PresenceSetting::create([
+            'label' => 'Our Presence',
+            'heading_count' => '6 Markets',
+            'heading_standard' => 'One standard.',
+            'subtitle' => 'From Cairo to San Francisco — delivering technology infrastructure across the Middle East, North Africa, Europe, and the Americas.',
+        ]);
+
+        // 14. Presence Locations
+        $locations = [
+            [
+                'name' => 'Egypt',
+                'code' => 'eg',
+                'num_id' => '818',
+                'lng' => 28.0,
+                'lat' => 29.5,
+                'pos' => 'center',
+                'role' => 'Headquarters',
+                'description' => 'Our engineering hub and home base. Egypt powers TCF\'s full delivery engine — housing our development, design, and operations teams since 2015.',
+            ],
+            [
+                'name' => 'Saudi Arabia',
+                'code' => 'sa',
+                'num_id' => '682',
+                'lng' => 43.0,
+                'lat' => 21.5,
+                'pos' => 'center',
+                'role' => 'Primary Market',
+                'description' => 'Our largest and most active market. We deliver end-to-end digital products for Saudi enterprises, fully aligned with Vision 2030 digital transformation goals.',
+            ],
+            [
+                'name' => 'United Arab Emirates',
+                'code' => 'ae',
+                'num_id' => '784',
+                'lng' => 57.0,
+                'lat' => 24.5,
+                'pos' => 'left center',
+                'role' => 'Regional Office',
+                'description' => 'Our representative office in the UAE bridges us directly to Gulf clients — providing on-ground presence, regional account management, and faster response times.',
+            ],
+            [
+                'name' => 'Kuwait',
+                'code' => 'kw',
+                'num_id' => '414',
+                'lng' => 50.0,
+                'lat' => 32.5,
+                'pos' => 'left center',
+                'role' => 'Market Presence',
+                'description' => 'Delivering custom software and digital transformation services to the Kuwaiti market.',
+            ],
+            [
+                'name' => 'Turkey',
+                'code' => 'tr',
+                'num_id' => '792',
+                'lng' => 33.0,
+                'lat' => 41.0,
+                'pos' => 'center',
+                'role' => 'Regional Market',
+                'description' => 'Technical partnerships and development support for regional startups and enterprises.',
+            ],
+            [
+                'name' => 'United States',
+                'code' => 'us',
+                'num_id' => '840',
+                'lng' => -98.0,
+                'lat' => 39.5,
+                'pos' => 'left center',
+                'role' => 'Global Sales',
+                'description' => 'Our presence in the US facilitates global technical partnerships and international software delivery.',
+            ],
+        ];
+        foreach ($locations as $index => $location) {
+            PresenceLocation::create(array_merge($location, ['sort_order' => $index]));
+        }
     }
 }

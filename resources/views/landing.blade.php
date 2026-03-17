@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>The Code Factory — Technology Infrastructure Partner</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   @vite(['resources/css/app.css', 'resources/js/landing.js'])
   <style>
     :root {
@@ -27,13 +27,13 @@
     body {
       background: var(--navy);
       color: var(--white);
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 300;
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, nav, .label {
-      font-family: 'Inter', sans-serif;
+    h1, h2, h3, h4, h5, h6, nav, .label, .section-label, .section-title {
+      font-family: 'Lexend', sans-serif;
     }
 
     /* ─── HERO SHAPE ─── */
@@ -488,6 +488,8 @@
       color: var(--muted);
       line-height: 1.6;
       font-weight: 300;
+      margin: 0 auto;
+      max-width: 240px;
     }
 
     /* ─── PROJECTS ─── */
@@ -589,6 +591,8 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
     }
 
     .why-item {
@@ -1726,24 +1730,18 @@
       <div class="section-label">Where We Operate</div>
       <h2 class="section-title">Regional <span class="accent">Presence.</span></h2>
     </div>
-    <div class="markets-grid markets-row reveal" id="marketsGrid">
-      <div class="market-card">
-        <div class="market-flag"><img src="https://flagcdn.com/w80/eg.png" alt="Egypt" style="width:56px;height:auto;border-radius:4px;display:block;"/></div>
-        <h3>Egypt</h3>
-        <p>Our back office and engineering hub. Egypt powers TCF's delivery engine — housing our full development, design, and operations teams.</p>
-        <span class="market-badge badge-secondary">Back Office</span>
-      </div>
-      <div class="market-card">
-        <div class="market-flag"><img src="https://flagcdn.com/w80/ae.png" alt="UAE" style="width:56px;height:auto;border-radius:4px;display:block;"/></div>
-        <h3>United Arab Emirates</h3>
-        <p>Our representative office in UAE bridges us directly to Gulf clients — providing on-ground presence and regional account management.</p>
-        <span class="market-badge badge-secondary">Back Office</span>
-      </div>
-      <div class="market-card">
-        <div class="market-flag"><img src="https://flagcdn.com/w80/sa.png" alt="Saudi Arabia" style="width:56px;height:auto;border-radius:4px;display:block;"/></div>
-        <h3>Saudi Arabia</h3>
-        <p>Our main market. We deliver end-to-end digital products for Saudi enterprises, aligned with Vision 2030 digital transformation goals.</p>
-        <span class="market-badge badge-secondary">Back Office</span>
+    <div class="markets-grid reveal" id="marketsGrid">
+      <!-- Static content removed, will be rendered by JS -->
+    </div>
+
+    <!-- D3 + TopoJSON for world map -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+
+    <div style="max-width:1200px; margin:56px auto 0; padding:0 60px;">
+      <div class="world-map-wrap reveal" id="worldMapWrap" style="position: relative; width: 100%; aspect-ratio: 16/7; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: #040c18;">
+        <svg id="worldMapSvg" style="width: 100%; height: 100%; display: block;"></svg>
+        <div id="mapPins" style="position: absolute; inset: 0; pointer-events: none;"></div>
       </div>
     </div>
   </section>
