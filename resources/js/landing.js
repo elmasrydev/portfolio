@@ -15,6 +15,8 @@ async function fetchPageData() {
         if (data.projects) renderProjects(data.projects);
         if (data.why_items) renderWhy(data.why_items);
         if (data.markets) renderMarkets(data.markets);
+        if (data.presence_setting) renderPresenceHeader(data.presence_setting);
+        if (data.presence_locations) renderWorldMap(data.presence_locations);
         if (data.brands) renderBrands(data.brands);
         if (data.testimonials) renderTestimonials(data.testimonials);
         if (data.portfolio_cta) renderPortfolioCta(data.portfolio_cta);
@@ -84,13 +86,12 @@ function renderProcess(steps) {
     const grid = document.getElementById('processGrid');
     if (grid && steps.length > 0) {
         grid.innerHTML = steps.map((step, index) => `
-            <div class="process-card reveal">
-                <div class="process-icon">
+            <div class="step reveal">
+                <div class="step-num">
                     ${step.icon_svg}
                 </div>
-                <div class="process-number">0${index + 1}</div>
-                <h3 class="process-title">${step.title}</h3>
-                <p class="process-desc">${step.description}</p>
+                <h4>${step.title}</h4>
+                <p>${step.description}</p>
             </div>
         `).join('');
     }
@@ -121,41 +122,157 @@ function renderWhy(items) {
     const grid = document.getElementById('whyGrid');
     if (grid && items.length > 0) {
         grid.innerHTML = items.map(item => `
-            <div class="why-card reveal">
+            <div class="why-item reveal">
                 <div class="why-icon">
                     ${item.icon_svg}
                 </div>
-                <h3 class="why-title">${item.title}</h3>
-                <p class="why-desc">${item.description}</p>
+                <div class="why-body">
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                </div>
             </div>
         `).join('');
     }
 }
 
+function renderPresenceHeader(setting) {
+    const label = document.getElementById('presenceLabel');
+    const title = document.getElementById('presenceTitle');
+    const subtitle = document.getElementById('presenceSubtitle');
+
+    if (label && setting.label) label.textContent = setting.label;
+    if (title && setting.heading_count) {
+        title.innerHTML = `${setting.heading_count}. One <span class="accent">${setting.heading_standard || 'standard.'}</span>`;
+    }
+    if (subtitle && setting.subtitle) subtitle.textContent = setting.subtitle;
+}
+
 function renderMarkets(markets) {
+    // We already have presence_locations in the parent data object in fetchPageData
+    // But fetchPageData passes data.markets here.
+    // Let's actually use the markets data for the cards, and we'll handle the map separately.
     const row = document.getElementById('marketsGrid');
     if (row && markets.length > 0) {
         row.innerHTML = markets.map(market => `
             <div class="market-card reveal">
-                <div class="market-header">
-                    <img src="${market.flag_url || 'https://placehold.co/40x30'}" alt="${market.flag_alt}" class="market-flag">
-                    <h3 class="market-name">${market.country_name}</h3>
+                <div class="market-box">
+                    <img src="${market.flag_url || 'https://flagcdn.com/w80/sa.png'}" alt="${market.flag_alt}">
                 </div>
-                <p class="market-desc">${market.description}</p>
-                <div class="market-badges">
-                    <span class="market-badge">${market.badge_text}</span>
-                </div>
+                <h3>${market.country_name}</h3>
+                <p>${market.description}</p>
+                <div class="market-badge">${market.badge_text}</div>
             </div>
         `).join('');
     }
+}
+
+async function renderWorldMap(locations) {
+    const wrap = document.getElementById('worldMapWrap');
+    const svgEl = document.getElementById('worldMapSvg');
+    const pinsEl = document.getElementById('mapPins');
+
+    if (!wrap || !svgEl || !pinsEl || !locations || locations.length === 0) return;
+
+    const W = wrap.offsetWidth;
+    const H = wrap.offsetHeight;
+
+    const highlightedIds = new Set(locations.map(loc => loc.num_id.toString()));
+
+    const projection = d3.geoNaturalEarth1()
+        .rotate([-10, 0])
+        .scale(W / 4.2)
+        .translate([W / 2, H / 1.85]);
+
+    const pathGen = d3.geoPath().projection(projection);
+
+    const graticule = d3.geoGraticule().step([20, 20]);
+    const svg = d3.select('#worldMapSvg');
+
+    // Sphere & Graticule
+    svg.append('path')
+        .datum({ type: 'Sphere' })
+        .attr('class', 'map-sphere')
+        .attr('d', pathGen)
+        .style('fill', '#040c18')
+        .style('stroke', 'none');
+
+    svg.append('path')
+        .datum(graticule())
+        .attr('class', 'map-graticule')
+        .attr('d', pathGen)
+        .style('fill', 'none')
+        .style('stroke', 'rgba(0,180,216,0.08)')
+        .style('stroke-width', '0.5');
+
+    try {
+        const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+        const features = topojson.feature(world, world.objects.countries).features;
+
+        svg.selectAll('path.country-path')
+            .data(features)
+            .join('path')
+            .attr('class', d =>
+                d.id && highlightedIds.has(d.id.toString())
+                    ? 'country-path country-highlighted'
+                    : 'country-path'
+            )
+            .attr('d', pathGen)
+            .style('fill', d => d.id && highlightedIds.has(d.id.toString()) ? 'rgba(0,180,216,0.2)' : '#0f172a')
+            .style('stroke', d => d.id && highlightedIds.has(d.id.toString()) ? 'rgba(0,180,216,0.4)' : 'rgba(0,180,216,0.05)')
+            .style('stroke-width', '0.5');
+
+        // Add country border mesh
+        svg.append('path')
+            .datum(topojson.mesh(world, world.objects.countries, (a, b) => a !== b))
+            .attr('fill', 'none')
+            .attr('stroke', 'rgba(0,180,216,0.15)')
+            .attr('stroke-width', '0.4')
+            .attr('d', pathGen);
+
+    } catch (e) {
+        console.warn('Map data failed to load', e);
+    }
+
+    // Place flag pins
+    locations.forEach(loc => {
+        const [px, py] = projection([parseFloat(loc.lng), parseFloat(loc.lat)]);
+        const pct_x = (px / W) * 100;
+        const pct_y = (py / H) * 100;
+
+        const pin = document.createElement('div');
+        pin.className = 'flag-pin';
+        pin.style.left = pct_x + '%';
+        pin.style.top = pct_y + '%';
+        pin.style.position = 'absolute';
+
+        const glow = document.createElement('div');
+        glow.className = 'pin-glow';
+        glow.style.left = pct_x + '%';
+        glow.style.top = pct_y + '%';
+        glow.style.position = 'absolute';
+
+        pin.innerHTML = `
+          <div class="pin-body">
+            <img src="https://flagcdn.com/w160/${loc.code}.png" alt="${loc.name}" loading="lazy" style="object-position:${loc.pos}; width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="pin-tip"></div>
+          <div class="pin-dot"></div>
+          <div class="flag-label">${loc.name}</div>
+        `;
+
+        pinsEl.appendChild(glow);
+        pinsEl.appendChild(pin);
+    });
 }
 
 function renderBrands(brands) {
     const grid = document.getElementById('brandsGrid');
     if (grid && brands.length > 0) {
         grid.innerHTML = brands.map(brand => `
-            <div class="brand-item reveal" style="--brand-color: ${brand.accent_color}">
-                ${brand.logo_url ? `<img src="${brand.logo_url}" alt="${brand.name}" class="brand-img">` : `<span class="brand-logo">${brand.initials}</span>`}
+            <div class="brand-item reveal">
+                <div class="brand-box" style="border-top: 2px solid ${brand.accent_color || 'var(--cyan)'}">
+                    ${brand.logo_url ? `<img src="${brand.logo_url}" alt="${brand.name}">` : `<span class="brand-initials">${brand.initials}</span>`}
+                </div>
                 <span class="brand-name">${brand.name}</span>
             </div>
         `).join('');
@@ -197,14 +314,18 @@ function renderTestimonialCard(t) {
 
 function renderPortfolioCta(cta) {
     const section = document.querySelector('.portfolio-cta');
-    if (section) {
-        if (cta.label) section.querySelector('.label-text').textContent = cta.label;
-        if (cta.heading) section.querySelector('h2').innerHTML = cta.heading;
-        if (cta.description) section.querySelector('p').textContent = cta.description;
-        if (cta.button_text) {
-            const btn = section.querySelector('.btn-primary');
-            btn.innerHTML = `${cta.button_text} <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>`;
-            if (cta.pdf_url) btn.href = cta.pdf_url;
+    if (section && cta) {
+        const titleEl = section.querySelector('.cta-title');
+        const descEl = section.querySelector('.cta-desc');
+        const btnEl = section.querySelector('.btn-primary');
+        const labelEl = section.querySelector('.section-label');
+
+        if (labelEl) labelEl.textContent = cta.label;
+        if (titleEl) titleEl.innerHTML = cta.heading;
+        if (descEl) descEl.textContent = cta.description;
+        if (btnEl) {
+            btnEl.textContent = cta.button_text;
+            btnEl.href = cta.pdf_url || '#';
         }
     }
 }

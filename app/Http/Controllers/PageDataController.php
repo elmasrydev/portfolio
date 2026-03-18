@@ -8,6 +8,8 @@ use App\Models\HeroSetting;
 use App\Models\Market;
 use App\Models\MarqueeItem;
 use App\Models\PortfolioCta;
+use App\Models\PresenceLocation;
+use App\Models\PresenceSetting;
 use App\Models\ProcessStep;
 use App\Models\Project;
 use App\Models\Service;
@@ -29,24 +31,29 @@ class PageDataController extends Controller
             'process_steps' => ProcessStep::where('is_active', true)->orderBy('sort_order')->get(),
             'projects' => Project::with('tags')->where('is_active', true)->orderBy('sort_order')->get()->map(function ($project) {
                 $project->image_url = $project->getFirstMediaUrl('project_image');
+
                 return $project;
             }),
             'why_items' => WhyItem::where('is_active', true)->orderBy('sort_order')->get(),
             'markets' => Market::where('is_active', true)->orderBy('sort_order')->get()->map(function ($market) {
                 $market->flag_url = $market->getFirstMediaUrl('flag');
+
                 return $market;
             }),
             'brands' => Brand::where('is_active', true)->orderBy('sort_order')->get()->map(function ($brand) {
                 $brand->logo_url = $brand->getFirstMediaUrl('logo');
+
                 return $brand;
             }),
             'testimonials' => [
                 'row1' => Testimonial::where('is_active', true)->where('row_group', 1)->orderBy('sort_order')->get()->map(function ($t) {
                     $t->photo_url = $t->getFirstMediaUrl('photo');
+
                     return $t;
                 }),
                 'row2' => Testimonial::where('is_active', true)->where('row_group', 2)->orderBy('sort_order')->get()->map(function ($t) {
                     $t->photo_url = $t->getFirstMediaUrl('photo');
+
                     return $t;
                 }),
             ],
@@ -55,9 +62,16 @@ class PageDataController extends Controller
                 if ($cta) {
                     $cta->pdf_url = $cta->getFirstMediaUrl('portfolio_pdf');
                 }
+
                 return $cta;
             })(),
             'contact' => ContactSetting::where('is_active', true)->first(),
+            'presence_setting' => PresenceSetting::where('is_active', true)->first(),
+            'presence_locations' => PresenceLocation::where('is_active', true)->orderBy('sort_order')->get()->map(function ($loc) {
+                $loc->flag_url = $loc->getFirstMediaUrl('flag');
+
+                return $loc;
+            }),
             'site' => SiteSetting::all()->pluck('value', 'key'),
         ];
 
