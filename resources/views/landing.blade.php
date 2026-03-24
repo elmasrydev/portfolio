@@ -103,7 +103,7 @@
     }
 
     .nav-links a {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 14px;
       font-weight: 400;
       color: var(--muted);
@@ -117,7 +117,7 @@
     .nav-cta {
       background: var(--cyan);
       color: var(--navy);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 700;
       font-size: 13px;
       padding: 10px 22px;
@@ -171,7 +171,7 @@
     }
 
     .hero-label {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 3px;
@@ -202,7 +202,7 @@
 
     .hero-sub {
       margin-top: 28px;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 300;
       font-size: 18px;
       line-height: 1.7;
@@ -220,7 +220,7 @@
     .btn-primary {
       background: var(--cyan);
       color: var(--navy);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 700;
       font-size: 14px;
       padding: 16px 34px;
@@ -238,7 +238,7 @@
 
     .btn-ghost {
       color: var(--muted);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 600;
       font-size: 14px;
       text-decoration: none;
@@ -266,7 +266,7 @@
     .stat-item { }
 
     .stat-num {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 36px;
       font-weight: 800;
       color: var(--white);
@@ -277,7 +277,7 @@
     .stat-num span { color: var(--cyan); }
 
     .stat-label {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 13px;
       color: var(--muted);
       margin-top: 6px;
@@ -300,7 +300,7 @@
     }
 
     .marquee-track span {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 2.5px;
@@ -325,7 +325,7 @@
     }
 
     .section-label {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 3px;
@@ -342,7 +342,7 @@
     }
 
     .section-title {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: clamp(22px, 3vw, 40px);
       font-weight: 800;
       letter-spacing: -1px;
@@ -369,7 +369,7 @@
     }
 
     .services-desc {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 16px;
       line-height: 1.7;
       color: var(--muted);
@@ -423,7 +423,7 @@
     .market-flag svg { width: 36px; height: 36px; }
 
     .service-card h3 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 14px;
@@ -431,7 +431,7 @@
     }
 
     .service-card p {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 14px;
       line-height: 1.7;
       color: var(--muted);
@@ -469,7 +469,7 @@
       background: var(--navy);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 24px;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 13px;
       font-weight: 700;
       color: var(--cyan);
@@ -477,7 +477,7 @@
     }
 
     .step h4 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 15px;
       font-weight: 700;
       margin-bottom: 10px;
@@ -531,7 +531,7 @@
 
     .project-tag {
       display: inline-block;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -545,7 +545,7 @@
     }
 
     .project-card h3 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.5px;
@@ -565,7 +565,7 @@
     }
 
     .meta-tag {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 11px;
       font-weight: 600;
       color: var(--muted);
@@ -604,7 +604,7 @@
     .why-item:hover { background: #162032; }
 
     .why-num {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 48px;
       font-weight: 900;
       color: rgba(0,180,216,0.15);
@@ -614,7 +614,7 @@
     }
 
     .why-item h3 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 17px;
       font-weight: 700;
       margin-bottom: 10px;
@@ -658,7 +658,7 @@
     }
 
     .market-card h3 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 8px;
@@ -674,7 +674,7 @@
     .market-badge {
       margin-top: 20px;
       display: inline-block;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 1.5px;
@@ -851,7 +851,7 @@
     }
 
     .cta h2 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: clamp(32px, 5vw, 60px);
       font-weight: 800;
       letter-spacing: -2px;
@@ -892,7 +892,7 @@
       align-items: start;
     }
     .contact-left h2 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: clamp(26px, 3vw, 38px);
       font-weight: 800;
       letter-spacing: -1px;
@@ -960,7 +960,7 @@
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px;
       color: var(--white);
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 14px;
       padding: 12px 14px;
       outline: none;
@@ -980,7 +980,7 @@
       gap: 8px;
       background: var(--cyan);
       color: var(--navy);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 700;
       font-size: 15px;
       padding: 14px 28px;
@@ -1026,7 +1026,7 @@
     }
 
     .footer-col h4 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1.5px;
@@ -1066,7 +1066,7 @@
     }
 
     .footer-brand h2 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 22px;
       font-weight: 800;
       color: var(--white);
@@ -1136,7 +1136,7 @@
     .brand-logo-box:hover::before { opacity: 1; }
 
     .bl-initials {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 800;
       font-size: 18px;
       letter-spacing: -0.5px;
@@ -1146,7 +1146,7 @@
     }
 
     .brand-logo-name {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 10px;
       font-weight: 600;
       color: var(--muted);
@@ -1226,7 +1226,7 @@
     }
 
     .quote-mark {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 48px;
       line-height: 1;
       color: var(--cyan);
@@ -1259,7 +1259,7 @@
     }
 
     .author-name {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 13px;
       font-weight: 700;
     }
@@ -1303,7 +1303,7 @@
     }
 
     .portfolio-left h2 {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: clamp(24px, 3vw, 36px);
       font-weight: 800;
       letter-spacing: -1px;
@@ -1327,7 +1327,7 @@
     .btn-download {
       background: var(--cyan);
       color: #ffffff;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-weight: 700;
       font-size: 14px;
       padding: 16px 32px;
@@ -1401,7 +1401,7 @@
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lexend', sans-serif;
       font-size: 20px;
       font-weight: 600;
       color: var(--white);
@@ -2731,7 +2731,7 @@
 
           drawIcon(n.type, n.x, n.y);
 
-          ctx.font         = '10px Inter';
+          ctx.font         = '10px Lexend';
           ctx.fillStyle    = 'rgba(148,163,184,0.85)';
           ctx.textAlign    = 'center';
           ctx.textBaseline = 'top';
