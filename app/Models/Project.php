@@ -13,9 +13,8 @@ class Project extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $guarded = [];
+
     /** @use HasFactory<ProjectFactory> */
-
-
     public function tags()
     {
         return $this->hasMany(ProjectTag::class);

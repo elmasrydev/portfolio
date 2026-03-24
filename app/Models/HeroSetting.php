@@ -10,5 +10,4 @@ class HeroSetting extends Model
 {
     protected $guarded = [];
     /** @use HasFactory<HeroSettingFactory> */
-
 }

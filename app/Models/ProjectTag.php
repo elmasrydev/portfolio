@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectTag extends Model
 {
     protected $guarded = [];
+
     /** @use HasFactory<ProjectTagFactory> */
-
-
     public function project()
     {
         return $this->belongsTo(Project::class);

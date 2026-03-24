@@ -36,12 +36,19 @@
       font-family: 'Lexend', sans-serif;
     }
 
-    /* ─── HERO SHAPE ─── */
+    /* ─── HERO ─── */
     .hero {
+      min-height: 100vh;
+      display: flex;
       flex-direction: row !important;
       align-items: center !important;
       justify-content: space-between !important;
       gap: 60px;
+      padding: 140px 60px 100px;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      color: var(--white);
     }
 
     .hero-content {
@@ -129,17 +136,6 @@
 
     .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: flex-start;
-      padding: 140px 60px 100px;
-      position: relative;
-      overflow: hidden;
-      background: var(--navy);
-      color: var(--white);
-    }
 
     .hero-bg {
       position: absolute; inset: 0; pointer-events: none;
@@ -263,7 +259,6 @@
       animation: fadeUp 0.8s 0.8s ease both;
     }
 
-    .stat-item { }
 
     .stat-num {
       font-family: 'Lexend', sans-serif;

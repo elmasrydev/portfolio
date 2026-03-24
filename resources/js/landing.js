@@ -1,7 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchPageData();
     setupContactForm();
+    setupMobileMenu();
 });
+
+function setupMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+    }
+
+    window.closeMobileMenu = () => {
+        if (hamburger) hamburger.classList.remove('open');
+        if (mobileMenu) mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+}
 
 async function fetchPageData() {
     try {
