@@ -143,7 +143,7 @@ function renderWhy(items) {
     if (grid && items.length > 0) {
         grid.innerHTML = items.map(item => `
             <div class="why-item reveal">
-                <div class="why-icon">
+                <div class="why-num">
                     ${item.icon_svg}
                 </div>
                 <div class="why-body">
@@ -162,7 +162,7 @@ function renderPresenceHeader(setting) {
 
     if (label && setting.label) label.textContent = setting.label;
     if (title && setting.heading_count) {
-        title.innerHTML = `${setting.heading_count}. One <span class="accent">${setting.heading_standard || 'standard.'}</span>`;
+        title.innerHTML = `${setting.heading_count}. <span class="accent">${setting.heading_standard || 'standard.'}</span>`;
     }
     if (subtitle && setting.subtitle) subtitle.textContent = setting.subtitle;
 }
@@ -174,13 +174,15 @@ function renderMarkets(markets) {
     const row = document.getElementById('marketsGrid');
     if (row && markets.length > 0) {
         row.innerHTML = markets.map(market => `
-            <div class="market-card reveal">
-                <div class="market-box">
-                    <img src="${market.flag_url || 'https://flagcdn.com/w80/sa.png'}" alt="${market.flag_alt}">
+            <div class="market-chip" style="flex-direction:column; align-items:flex-start; border-radius:14px; padding:24px 24px 20px; gap:14px; flex:1; min-width:220px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                <img class="chip-flag" src="${market.flag_url || 'https://flagcdn.com/w80/sa.png'}" alt="${market.flag_alt}" style="width:38px;height:26px;"/>
+                <div>
+                    <div class="chip-name">${market.country_name}</div>
+                    <div class="chip-role">${market.badge_text}</div>
                 </div>
-                <h3>${market.country_name}</h3>
-                <p>${market.description}</p>
-                <div class="market-badge">${market.badge_text}</div>
+                </div>
+                <p style="font-family:'Lexend',sans-serif;font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin:0;">${market.description}</p>
             </div>
         `).join('');
     }
