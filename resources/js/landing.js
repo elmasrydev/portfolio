@@ -69,8 +69,7 @@ function renderHero(hero, stats) {
     // Stats
     const statsContainer = document.getElementById('heroStats');
     if (statsContainer && stats.length > 0) {
-        
-        statsContainer.innerHTML = stats.map(stat => `            
+        statsContainer.innerHTML = stats.map(stat => `
             <div class="stat-item">
                 <span class="stat-num">${stat.value}</span>
                 <span class="stat-label">${stat.label}</span>
