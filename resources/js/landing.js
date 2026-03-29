@@ -41,6 +41,7 @@ async function fetchPageData() {
         if (data.testimonials) renderTestimonials(data.testimonials);
         if (data.portfolio_cta) renderPortfolioCta(data.portfolio_cta);
         if (data.contact) renderContact(data.contact);
+        if (data.site) renderFooter(data.site);
         
         // Trigger reveal animations
         window.dispatchEvent(new Event('content-loaded'));
@@ -50,20 +51,24 @@ async function fetchPageData() {
 }
 
 function renderHero(hero, stats) {
-    const heroTitle = document.querySelector('.hero-title');
-    const heroSubtext = document.querySelector('.hero-subtext');
-    const ctaPrimary = document.querySelector('.hero-content .btn-primary');
-    const ctaSecondary = document.querySelector('.hero-content .btn-secondary');
+    if (!hero) return;
+    const heroLabel = document.querySelector('.hero-label');
+    const heroTitle = document.querySelector('.hero-content h1');
+    const heroSub = document.querySelector('.hero-sub');
+    const ctaPrimary = document.querySelector('.hero-actions .btn-primary');
+    const ctaSecondary = document.querySelector('.hero-actions .btn-ghost');
 
-    if (heroTitle) heroTitle.innerHTML = hero.title;
-    if (heroSubtext) heroSubtext.textContent = hero.subtitle;
+    if (heroLabel) heroLabel.textContent = hero.label;
+    if (heroTitle) heroTitle.innerHTML = hero.title_html || hero.title;
+    if (heroSub) heroSub.textContent = hero.subtitle;
+    
     if (ctaPrimary && hero.cta_text) {
         ctaPrimary.textContent = hero.cta_text;
-        ctaPrimary.href = hero.cta_url || '#';
+        ctaPrimary.href = hero.cta_url || '#contact';
     }
     if (ctaSecondary && hero.secondary_cta_text) {
         ctaSecondary.textContent = hero.secondary_cta_text;
-        ctaSecondary.href = hero.secondary_cta_url || '#';
+        ctaSecondary.href = hero.secondary_cta_url || '#projects';
     }
     
     // Stats
@@ -201,9 +206,9 @@ async function renderWorldMap(locations) {
     const highlightedIds = new Set(locations.map(loc => loc.num_id.toString()));
 
     const projection = d3.geoNaturalEarth1()
-        .rotate([-10, 0])
-        .scale(W / 4.2)
-        .translate([W / 2, H / 1.85]);
+        .rotate([40, -10])
+        .scale(W / 4.5)
+        .translate([W / 2, H / 1.6]);
 
     const pathGen = d3.geoPath().projection(projection);
 
@@ -447,5 +452,34 @@ function setupContactForm() {
                 btn.disabled = false;
             }, 3000);
         }
+    });
+}
+function renderFooter(site) {
+    if (!site) return;
+
+    // Brand description
+    const footerDesc = document.querySelector('.footer-brand p');
+    if (footerDesc && site.footer_description) {
+        footerDesc.textContent = site.footer_description;
+    }
+
+    // Copyright
+    const copyright = document.querySelector('.footer-secondary p');
+    if (copyright && site.copyright) {
+        copyright.textContent = site.copyright;
+    }
+
+    // Social links
+    const socialLinks = {
+        'facebook': site.facebook_url,
+        'twitter': site.twitter_url,
+        'linkedin': site.linkedin_url,
+        'instagram': site.instagram_url
+    };
+
+    Object.entries(socialLinks).forEach(([key, url]) => {
+        if (!url) return;
+        const link = document.querySelector(`.social-btn.${key}`);
+        if (link) link.href = url;
     });
 }

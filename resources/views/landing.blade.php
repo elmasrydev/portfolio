@@ -80,8 +80,8 @@
 
     .hero-visual {
       flex-shrink: 0;
-      width: 660px;
-      height: 660px;
+      width: 780px;
+      height: 780px;
       position: relative;
       display: flex;
       align-items: center;
@@ -388,7 +388,7 @@
 
     /* ─── SECTIONS ─── */
     section {
-      padding: 100px 60px;
+      padding: 120px 60px;
     }
 
     .section-label {
@@ -1125,7 +1125,7 @@
     /* ─── CONTACT ─── */
     .contact-section {
       background: var(--navy-mid);
-      padding: 100px 0;
+      padding: 120px 0;
       color: var(--white);
     }
 
@@ -1436,7 +1436,7 @@
     /* ─── BRANDS LOGO GRID ─── */
     .brands {
       background: var(--navy-mid);
-      padding: 72px 60px;
+      padding: 120px 60px;
     }
 
     .brands-header {
@@ -1639,7 +1639,7 @@
     /* ─── PORTFOLIO ─── */
     .portfolio-cta {
       background: var(--navy);
-      padding: 80px 60px;
+      padding: 120px 60px;
     }
 
     .portfolio-inner {
@@ -2250,7 +2250,7 @@
 
     <!-- RIGHT: Dynamic shape -->
     <div class="hero-visual">
-      <canvas id="heroCanvas" width="660" height="660"></canvas>
+      <canvas id="heroCanvas" width="780" height="780"></canvas>
     </div>
   </section>
 
@@ -2587,7 +2587,7 @@
   </section>
 
   <!-- MARKETS -->
-  <section class="markets" id="markets" style="padding: 100px 0; overflow:hidden;">
+  <section class="markets" id="markets" style="overflow:hidden;">
     <!-- D3 + TopoJSON for world map -->
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
