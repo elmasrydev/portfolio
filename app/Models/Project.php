@@ -14,6 +14,14 @@ class Project extends Model implements HasMedia
 
     protected $guarded = [];
 
+    protected function casts(): array
+    {
+        return [
+            'is_featured' => 'boolean',
+            'is_active' => 'boolean',
+        ];
+    }
+
     /** @use HasFactory<ProjectFactory> */
     public function tags()
     {
