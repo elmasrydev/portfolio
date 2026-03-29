@@ -69,7 +69,8 @@ function renderHero(hero, stats) {
     // Stats
     const statsContainer = document.getElementById('heroStats');
     if (statsContainer && stats.length > 0) {
-        statsContainer.innerHTML = stats.map(stat => `
+        
+        statsContainer.innerHTML = stats.map(stat => `            
             <div class="stat-item">
                 <span class="stat-num">${stat.value}</span>
                 <span class="stat-label">${stat.label}</span>
@@ -291,44 +292,44 @@ function renderBrands(brands) {
     const grid = document.getElementById('brandsGrid');
     if (grid && brands.length > 0) {
         grid.innerHTML = brands.map(brand => `
-            <div class="brand-item reveal">
-                <div class="brand-box" style="border-top: 2px solid ${brand.accent_color || 'var(--cyan)'}">
-                    ${brand.logo_url ? `<img src="${brand.logo_url}" alt="${brand.name}">` : `<span class="brand-initials">${brand.initials}</span>`}
+            <div class="brand-logo-card">
+                <div class="brand-logo-box" style="--ac:${brand.accent_color || '#00B4D8'}">
+                    ${brand.logo_url ? `<img src="${brand.logo_url}" alt="${brand.name}" style="max-width:80%;max-height:80%;object-fit:contain;">` : `<span class="bl-initials">${brand.initials}</span>`}
                 </div>
-                <span class="brand-name">${brand.name}</span>
+                <div class="brand-logo-name">${brand.name}</div>
             </div>
         `).join('');
     }
 }
+
 
 function renderTestimonials(testimonials) {
     const row1 = document.getElementById('testimonialsRow1');
     const row2 = document.getElementById('testimonialsRow2');
     
     if (row1 && testimonials.row1.length > 0) {
-        const content = testimonials.row1.map(t => renderTestimonialCard(t)).join('');
-        row1.innerHTML = content + content;
+        row1.innerHTML = testimonials.row1.map(t => renderTestimonialCard(t)).join('');
     }
     
     if (row2 && testimonials.row2.length > 0) {
-        const content = testimonials.row2.map(t => renderTestimonialCard(t)).join('');
-        row2.innerHTML = content + content;
+        row2.innerHTML = testimonials.row2.map(t => renderTestimonialCard(t)).join('');
     }
 }
 
+
 function renderTestimonialCard(t) {
+    const starCount = parseInt(t.stars) || 5;
     return `
         <div class="testimonial-card">
-            <div class="testimonial-header">
-                <img src="${t.photo_url || 'https://placehold.co/100'}" alt="${t.author_name}" class="testimonial-photo">
-                <div class="testimonial-stars">
-                    ${Array(t.stars).fill('<span class="star">★</span>').join('')}
+            <img class="testimonial-photo" src="${t.photo_url || 'https://i.pravatar.cc/200'}" alt="${t.author_name}" />
+            <div class="testimonial-body">
+                <div class="stars">${'★'.repeat(starCount)}</div>
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">${t.quote}</p>
+                <div class="testimonial-author">
+                    <div class="author-name">${t.author_name}</div>
+                    <div class="author-role">${t.author_role}</div>
                 </div>
-            </div>
-            <p class="testimonial-quote">"${t.quote}"</p>
-            <div class="testimonial-author">
-                <div class="author-name">${t.author_name}</div>
-                <div class="author-role">${t.author_role}</div>
             </div>
         </div>
     `;
@@ -337,46 +338,60 @@ function renderTestimonialCard(t) {
 function renderPortfolioCta(cta) {
     const section = document.querySelector('.portfolio-cta');
     if (section && cta) {
-        const titleEl = section.querySelector('.cta-title');
-        const descEl = section.querySelector('.cta-desc');
-        const btnEl = section.querySelector('.btn-primary');
         const labelEl = section.querySelector('.section-label');
+        const titleEl = section.querySelector('h2');
+        const descEl = section.querySelector('.portfolio-left p');
+        const btnEl = section.querySelector('.btn-download');
 
-        if (labelEl) labelEl.textContent = cta.label;
-        if (titleEl) titleEl.innerHTML = cta.heading;
-        if (descEl) descEl.textContent = cta.description;
+        if (labelEl && cta.label) labelEl.textContent = cta.label;
+        if (titleEl && cta.heading) titleEl.innerHTML = cta.heading;
+        if (descEl && cta.description) descEl.textContent = cta.description;
         if (btnEl) {
-            btnEl.textContent = cta.button_text;
-            btnEl.href = cta.pdf_url || '#';
+            if (cta.button_text) btnEl.textContent = cta.button_text;
+            if (cta.pdf_url) {
+                btnEl.href = cta.pdf_url;
+                btnEl.setAttribute('download', '');
+            }
         }
     }
 }
+
 
 function renderContact(contact) {
     const section = document.querySelector('#contact');
     if (section) {
-        if (contact.label) section.querySelector('.label-text').textContent = contact.label;
-        if (contact.heading) section.querySelector('h2').textContent = contact.heading;
+        const labelEl = section.querySelector('.section-label');
+        if (labelEl && contact.label) labelEl.textContent = contact.label;
+
+        if (contact.heading) {
+            const headingEl = section.querySelector('h2');
+            if (headingEl) headingEl.innerHTML = contact.heading;
+        }
+
         if (contact.sub_text) {
-            const subtext = section.querySelector('.contact-subtext');
-            if (subtext) subtext.textContent = contact.sub_text;
+            const subEl = section.querySelector('.contact-sub');
+            if (subEl) subEl.textContent = contact.sub_text;
         }
         
         // Channels
-        const channels = section.querySelectorAll('.channel-card');
+        const channels = section.querySelectorAll('.contact-channel');
         if (channels[0] && contact.email) {
-            channels[0].querySelector('.channel-value').textContent = contact.email;
+            const valEl = channels[0].querySelector('.ch-val');
+            if (valEl) valEl.textContent = contact.email;
             channels[0].href = `mailto:${contact.email}`;
         }
         if (channels[1] && contact.address) {
-            channels[1].querySelector('.channel-value').textContent = contact.address;
+            const valEl = channels[1].querySelector('.ch-val');
+            if (valEl) valEl.innerHTML = contact.address;
         }
         if (channels[2] && contact.whatsapp_number) {
-            channels[2].querySelector('.channel-value').textContent = contact.whatsapp_number;
-            channels[2].href = contact.whatsapp_url;
+            const valEl = channels[2].querySelector('.ch-val');
+            if (valEl) valEl.textContent = contact.whatsapp_number;
+            if (contact.whatsapp_url) channels[2].href = contact.whatsapp_url;
         }
     }
 }
+
 
 function setupContactForm() {
     const form = document.getElementById('contactForm');
