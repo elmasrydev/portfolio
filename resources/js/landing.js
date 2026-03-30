@@ -157,7 +157,7 @@ function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     if (grid && projects.length > 0) {
         grid.innerHTML = projects.map(project => {
-            const isFeatured = project.is_featured === true || project.is_featured === 1 || project.is_featured === "1";
+            const isFeatured = Boolean(project.is_featured);
             return `
             <div class="project-card ${isFeatured ? 'featured' : ''} reveal">
                 <div class="project-content">
@@ -491,15 +491,15 @@ function renderFooter(site) {
     if (!site) return;
 
     // Brand description
-    const footerDesc = document.querySelector('.footer-brand p');
+    const footerDesc = document.querySelector('.footer-about p');
     if (footerDesc && site.footer_description) {
         footerDesc.textContent = site.footer_description;
     }
 
     // Copyright
-    const copyright = document.querySelector('.footer-secondary p');
-    if (copyright && site.copyright) {
-        copyright.textContent = site.copyright;
+    const copyright = document.querySelector('.footer-bottom p:first-child');
+    if (copyright && site.footer_copyright) {
+        copyright.textContent = site.footer_copyright;
     }
 
     // Social links
@@ -511,8 +511,18 @@ function renderFooter(site) {
     };
 
     Object.entries(socialLinks).forEach(([key, url]) => {
-        if (!url) return;
         const link = document.querySelector(`.social-btn.${key}`);
-        if (link) link.href = url;
+        if (link) {
+            if (url) {
+                link.href = url;
+                const item = link.closest('.social-item');
+                if (item) item.style.display = 'block';
+            } else {
+                const item = link.closest('.social-item');
+                if (item) item.style.display = 'none';
+            }
+        }
     });
+
+    renderEmails(site.contact_email);
 }
