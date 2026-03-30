@@ -16,7 +16,7 @@ function setupMobileMenu() {
         });
     }
 
-    window.closeMobileMenu = () => {
+    globalThis.closeMobileMenu = () => {
         if (hamburger) hamburger.classList.remove('open');
         if (mobileMenu) mobileMenu.classList.remove('open');
         document.body.style.overflow = '';
@@ -41,13 +41,44 @@ async function fetchPageData() {
         if (data.testimonials) renderTestimonials(data.testimonials);
         if (data.portfolio_cta) renderPortfolioCta(data.portfolio_cta);
         if (data.contact) renderContact(data.contact);
-        if (data.site) renderFooter(data.site);
+        if (data.site) {
+            renderFooter(data.site);
+            renderEmails(data.site.contact_email || (data.contact ? data.contact.email : null));
+        }
         
         // Trigger reveal animations
-        window.dispatchEvent(new Event('content-loaded'));
+        globalThis.dispatchEvent(new Event('content-loaded'));
     } catch (error) {
         console.error('Error fetching page data:', error);
     }
+}
+
+function renderEmails(email) {
+    if (!email) return;
+    const emailLinks = document.querySelectorAll('.dynamic-email');
+    emailLinks.forEach(link => {
+        link.href = `mailto:${email}`;
+        // Update either .ch-val or .email-text or just the textContent
+        const valEl = link.querySelector('.ch-val') || link.querySelector('.email-text');
+        if (valEl) {
+            valEl.textContent = email;
+        } else {
+            // Fallback for simple links
+            const svg = link.querySelector('svg');
+            if (svg) {
+                // If there's an SVG, we don't want to overwrite it
+                // We'll append text or find a text node
+                let textNode = Array.from(link.childNodes).find(node => node.nodeType === 3 && node.textContent.trim().length > 0);
+                if (textNode) {
+                    textNode.textContent = email;
+                } else if (link.textContent.length > 0) {
+                    // This might kill the SVG if not careful, but usually .email-text is used
+                }
+            } else {
+                link.textContent = email;
+            }
+        }
+    });
 }
 
 function renderHero(hero, stats) {
@@ -125,8 +156,10 @@ function renderProcess(steps) {
 function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     if (grid && projects.length > 0) {
-        grid.innerHTML = projects.map(project => `
-            <div class="project-card ${project.is_featured ? 'featured' : ''} reveal">
+        grid.innerHTML = projects.map(project => {
+            const isFeatured = project.is_featured === true || project.is_featured === 1 || project.is_featured === "1";
+            return `
+            <div class="project-card ${isFeatured ? 'featured' : ''} reveal">
                 <div class="project-content">
                     <span class="project-tag">${project.category || ''}</span>
                     <h3 class="project-title">${project.title}</h3>
@@ -139,7 +172,7 @@ function renderProjects(projects) {
                     ${project.image_url ? `<img src="${project.image_url}" alt="${project.title}" class="project-img">` : (project.icon_svg || '')}
                 </div>
             </div>
-        `).join('');
+        `; }).join('');
     }
 }
 
@@ -206,9 +239,9 @@ async function renderWorldMap(locations) {
     const highlightedIds = new Set(locations.map(loc => loc.num_id.toString()));
 
     const projection = d3.geoNaturalEarth1()
-        .rotate([40, -10])
-        .scale(W / 4.5)
-        .translate([W / 2, H / 1.6]);
+        .rotate([50, -5])
+        .scale(W / 5.5)
+        .translate([W / 2, H / 1.7]);
 
     const pathGen = d3.geoPath().projection(projection);
 
@@ -262,7 +295,7 @@ async function renderWorldMap(locations) {
 
     // Place flag pins
     locations.forEach(loc => {
-        const [px, py] = projection([parseFloat(loc.lng), parseFloat(loc.lat)]);
+        const [px, py] = projection([Number.parseFloat(loc.lng), Number.parseFloat(loc.lat)]);
         const pct_x = (px / W) * 100;
         const pct_y = (py / H) * 100;
 
@@ -322,7 +355,7 @@ function renderTestimonials(testimonials) {
 
 
 function renderTestimonialCard(t) {
-    const starCount = parseInt(t.stars) || 5;
+    const starCount = Number.parseInt(t.stars) || 5;
     return `
         <div class="testimonial-card">
             <img class="testimonial-photo" src="${t.photo_url || 'https://i.pravatar.cc/200'}" alt="${t.author_name}" />

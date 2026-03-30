@@ -2893,7 +2893,7 @@
           step.</p>
 
         <div class="contact-channels">
-          <a href="/cdn-cgi/l/email-protection#bcf5d2dad3fce8d4d9ffd3d8d9fadddfc8d3cec592dfd3" class="contact-channel">
+          <a href="#" class="contact-channel dynamic-email">
             <div class="ch-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="1.8" stroke-linecap="round"
                 stroke-linejoin="round" width="18" height="18">
@@ -2903,8 +2903,7 @@
             </div>
             <div>
               <div class="ch-lbl">Email</div>
-              <div class="ch-val"><span class="__cf_email__"
-                  data-cfemail="044d6a626b44506c61476b6061426567706b767d2a676b">[email&#160;protected]</span></div>
+              <div class="ch-val">contact@thecodefactory.net</div>
             </div>
           </a>
           <div class="contact-channel" style="cursor:default;">
@@ -3033,15 +3032,13 @@
           <h4>Contact</h4>
           <ul>
             <li>
-              <a href="/cdn-cgi/l/email-protection#70391e161f30241815331f1415361113041f02095e131f"
-                style="display:flex;align-items:center;gap:8px;">
+              <a href="#" class="dynamic-email" style="display:flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="1.8" stroke-linecap="round"
                   stroke-linejoin="round" width="14" height="14">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                   <path d="M2 7l10 7 10-7" />
                 </svg>
-                <span class="__cf_email__"
-                  data-cfemail="531a3d353c13073b36103c3736153230273c212a7d303c">[email&#160;protected]</span>
+                <span class="email-text">contact@thecodefactory.net</span>
               </a>
             </li>
             <li>
