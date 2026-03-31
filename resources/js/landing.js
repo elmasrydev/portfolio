@@ -773,16 +773,26 @@ function renderPortfolioCta(cta) {
             }
         }
         
-        // Also update hero download button if it exists
+        // Also update hero, nav and mobile download buttons
+        const sidebarCta = document.querySelector('.nav-cta');
+        const mobileCta = document.querySelector('.mobile-cta');
         const heroBtn = document.querySelector('.btn-download-hero');
-        if (heroBtn && cta.pdf_url) {
-            heroBtn.href = cta.pdf_url;
-            heroBtn.style.display = 'inline-flex';
-            heroBtn.target = "_blank";
-            if (cta.pdf_url.startsWith(window.location.origin) || cta.pdf_url.startsWith('/') || !cta.pdf_url.startsWith('http')) {
-                heroBtn.setAttribute('download', 'Portfolio.pdf');
+        
+        const updateBtn = (btn) => {
+            if (!btn) return;
+            if (cta.pdf_url) {
+                btn.href = cta.pdf_url;
+                if (cta.button_text && (btn.classList.contains('nav-cta') || btn.classList.contains('mobile-cta'))) {
+                    btn.textContent = cta.button_text;
+                }
+                btn.setAttribute('download', 'Portfolio.pdf');
+                btn.target = "_blank";
             }
-        }
+        };
+
+        updateBtn(sidebarCta);
+        updateBtn(mobileCta);
+        updateBtn(heroBtn);
     }
 }
 
