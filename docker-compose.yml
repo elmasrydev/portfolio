@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tcf-portfolio-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - tcf-network
+
+  db:
+    image: mariadb:10.11
+    container_name: tcf-portfolio-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_DATABASE: tcf_portfolio
+      MARIADB_USER: tcf_user
+      MARIADB_PASSWORD: nQqE9v6ZAuZn2Xs
+      MARIADB_ROOT_PASSWORD: nQqE9v6ZAuZn2Xsx
+    volumes:
+      - tcf-db-data:/var/lib/mysql
+      - ./tcf_portfolio.sql:/docker-entrypoint-initdb.d/tcf_portfolio.sql
+    networks:
+      - tcf-network
+
+networks:
+  tcf-network:
+    driver: bridge
+
+volumes:
+  tcf-db-data:
+    driver: local
