@@ -25,8 +25,7 @@ function setupMobileMenu() {
 
 async function fetchPageData() {
     try {
-        const baseUrl = window.app_url || '';
-        const response = await fetch(`${baseUrl}/api/page-data`);
+        const response = await fetch('/app/api/page-data');
         const data = await response.json();
         
         if (data.hero) renderHero(data.hero, data.stats);
