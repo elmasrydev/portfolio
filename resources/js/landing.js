@@ -52,14 +52,15 @@ async function fetchPageData() {
         // Trigger reveal animations
         globalThis.dispatchEvent(new Event('content-loaded'));
 
+    } catch (error) {
+        console.error('Error fetching page data:', error);
+    } finally {
         // Hide Page Loader
         const loader = document.getElementById('page-loader');
         if (loader) {
             loader.classList.add('loaded');
             setTimeout(() => loader.remove(), 600);
         }
-    } catch (error) {
-        console.error('Error fetching page data:', error);
     }
 }
 
