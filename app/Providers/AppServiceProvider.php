@@ -26,5 +26,14 @@ class AppServiceProvider extends ServiceProvider
         if ($url = config('app.url')) {
             \Illuminate\Support\Facades\URL::forceRootUrl($url);
         }
+
+        // Livewire subfolder support
+        \Livewire\Livewire::setScriptRoute(function ($handle) {
+            return \Illuminate\Support\Facades\Route::get('/app/livewire/livewire.js', $handle);
+        });
+
+        \Livewire\Livewire::setUpdateRoute(function ($handle) {
+            return \Illuminate\Support\Facades\Route::post('/app/livewire/update', $handle);
+        });
     }
 }
