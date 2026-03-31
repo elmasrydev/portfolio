@@ -40,14 +40,24 @@ async function fetchPageData() {
         if (data.brands) renderBrands(data.brands);
         if (data.testimonials) renderTestimonials(data.testimonials);
         if (data.portfolio_cta) renderPortfolioCta(data.portfolio_cta);
+        if (data.ecom_setting) renderEcommerce(data.ecom_setting, data.ecom_capabilities);
         if (data.contact) renderContact(data.contact);
         if (data.site) {
             renderFooter(data.site);
-            renderEmails(data.site.contact_email || (data.contact ? data.contact.email : null));
+        }
+        if (data.contact && data.contact.email) {
+            renderEmails(data.contact.email);
         }
         
         // Trigger reveal animations
         globalThis.dispatchEvent(new Event('content-loaded'));
+
+        // Hide Page Loader
+        const loader = document.getElementById('page-loader');
+        if (loader) {
+            loader.classList.add('loaded');
+            setTimeout(() => loader.remove(), 600);
+        }
     } catch (error) {
         console.error('Error fetching page data:', error);
     }
@@ -239,9 +249,9 @@ async function renderWorldMap(locations) {
     const highlightedIds = new Set(locations.map(loc => loc.num_id.toString()));
 
     const projection = d3.geoNaturalEarth1()
-        .rotate([50, -5])
-        .scale(W / 5.5)
-        .translate([W / 2, H / 1.7]);
+        .rotate([-10, 0])
+        .scale(W / 4.2)
+        .translate([W / 2, H / 1.75]);
 
     const pathGen = d3.geoPath().projection(projection);
 
@@ -252,17 +262,12 @@ async function renderWorldMap(locations) {
     svg.append('path')
         .datum({ type: 'Sphere' })
         .attr('class', 'map-sphere')
-        .attr('d', pathGen)
-        .style('fill', '#040c18')
-        .style('stroke', 'none');
+        .attr('d', pathGen);
 
     svg.append('path')
         .datum(graticule())
         .attr('class', 'map-graticule')
-        .attr('d', pathGen)
-        .style('fill', 'none')
-        .style('stroke', 'rgba(0,180,216,0.08)')
-        .style('stroke-width', '0.5');
+        .attr('d', pathGen);
 
     try {
         const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
@@ -276,10 +281,7 @@ async function renderWorldMap(locations) {
                     ? 'country-path country-highlighted'
                     : 'country-path'
             )
-            .attr('d', pathGen)
-            .style('fill', d => d.id && highlightedIds.has(d.id.toString()) ? 'rgba(0,180,216,0.2)' : '#0f172a')
-            .style('stroke', d => d.id && highlightedIds.has(d.id.toString()) ? 'rgba(0,180,216,0.4)' : 'rgba(0,180,216,0.05)')
-            .style('stroke-width', '0.5');
+            .attr('d', pathGen);
 
         // Add country border mesh
         svg.append('path')
@@ -387,7 +389,13 @@ function renderPortfolioCta(cta) {
             if (cta.button_text) btnEl.textContent = cta.button_text;
             if (cta.pdf_url) {
                 btnEl.href = cta.pdf_url;
-                btnEl.setAttribute('download', '');
+                btnEl.target = "_blank";
+                // Only use download attribute if it's the same origin
+                if (cta.pdf_url.startsWith(window.location.origin) || cta.pdf_url.startsWith('/')) {
+                    btnEl.setAttribute('download', 'Portfolio.pdf');
+                }
+            } else {
+                btnEl.style.display = 'none';
             }
         }
     }
@@ -491,15 +499,15 @@ function renderFooter(site) {
     if (!site) return;
 
     // Brand description
-    const footerDesc = document.querySelector('.footer-about p');
+    const footerDesc = document.querySelector('.footer-brand p');
     if (footerDesc && site.footer_description) {
         footerDesc.textContent = site.footer_description;
     }
 
     // Copyright
     const copyright = document.querySelector('.footer-bottom p:first-child');
-    if (copyright && site.footer_copyright) {
-        copyright.textContent = site.footer_copyright;
+    if (copyright && site.copyright) {
+        copyright.textContent = site.copyright;
     }
 
     // Social links
@@ -511,8 +519,9 @@ function renderFooter(site) {
     };
 
     Object.entries(socialLinks).forEach(([key, url]) => {
-        const link = document.querySelector(`.social-btn.${key}`);
+        const link = document.querySelector(`.footer-social .social-btn.${key}`);
         if (link) {
+            console.log(`Setting ${key} link to ${url}`);
             if (url) {
                 link.href = url;
                 const item = link.closest('.social-item');
@@ -523,6 +532,86 @@ function renderFooter(site) {
             }
         }
     });
+}
 
-    renderEmails(site.contact_email);
+
+function renderEcommerce(setting, capabilities) {
+    const label = document.getElementById('ecomLabel');
+    const title = document.getElementById('ecommerce-heading');
+    const description = document.getElementById('ecomDescription');
+    const partnerName = document.getElementById('ecomPartnerName');
+    const partnerSub = document.getElementById('ecomPartnerSub');
+    const statsContainer = document.getElementById('ecomStats');
+    const verticalsContainer = document.getElementById('ecomVerticals');
+    const capabilitiesContainer = document.getElementById('ecomCapabilities');
+
+    if (label && setting.label) label.textContent = setting.label;
+    
+    if (title && setting.title) {
+        // Apply accent span if not present and handle line break
+        let titleHtml = setting.title;
+        if (!titleHtml.includes('<span')) {
+            titleHtml = titleHtml.replace('sell.', '<span class="accent">sell.</span>');
+            titleHtml = titleHtml.replace('stores ', 'stores<br/>');
+        }
+        title.innerHTML = titleHtml;
+    }
+
+    if (description && setting.description) description.textContent = setting.description;
+    if (partnerName && setting.partner_name) partnerName.textContent = setting.partner_name;
+    if (partnerSub && setting.partner_sub) partnerSub.textContent = setting.partner_sub;
+
+    if (statsContainer) {
+        let statsHtml = '';
+        if (setting.stat1_n) {
+            statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat1_n.replace('+', '<em>+</em>')}</div><div class="l">${setting.stat1_l}</div></div>`;
+        }
+        if (setting.stat2_n) {
+            statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat2_n}</div><div class="l">${setting.stat2_l}</div></div>`;
+        }
+        if (setting.stat3_n) {
+            statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat3_n.replace('+', '<em>+</em>')}</div><div class="l">${setting.stat3_l}</div></div>`;
+        }
+        statsContainer.innerHTML = statsHtml;
+    }
+
+    if (verticalsContainer && setting.verticals) {
+        const labelEl = verticalsContainer.querySelector('.ec-verticals-label');
+        verticalsContainer.innerHTML = '';
+        if (labelEl) verticalsContainer.appendChild(labelEl);
+        
+        let verticalsList = setting.verticals;
+        if (typeof verticalsList === 'string') {
+            try {
+                verticalsList = JSON.parse(verticalsList);
+            } catch (e) {
+                verticalsList = verticalsList.split(',').map(v => v.trim());
+            }
+        }
+        
+        if (Array.isArray(verticalsList)) {
+            verticalsList.forEach(v => {
+                const chip = document.createElement('span');
+                chip.className = 'ec-chip';
+                chip.textContent = v;
+                verticalsContainer.appendChild(chip);
+            });
+        }
+    }
+
+    if (capabilitiesContainer && capabilities && capabilities.length > 0) {
+        capabilitiesContainer.innerHTML = capabilities.map(cap => `
+            <li class="ec-row">
+                <span class="ec-row-num" aria-hidden="true">${cap.num}</span>
+                <div class="ec-row-icon">
+                    ${cap.icon_svg}
+                </div>
+                <div class="ec-row-body">
+                    <h3>${cap.title}</h3>
+                    <p>${cap.description}</p>
+                </div>
+                <span class="ec-row-arrow" aria-hidden="true">→</span>
+            </li>
+        `).join('');
+    }
 }

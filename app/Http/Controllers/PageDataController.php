@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\ContactSetting;
+use App\Models\EcommerceCapability;
+use App\Models\EcommerceSetting;
 use App\Models\HeroSetting;
 use App\Models\Market;
 use App\Models\MarqueeItem;
@@ -73,6 +75,8 @@ class PageDataController extends Controller
                 return $loc;
             }),
             'site' => SiteSetting::all()->pluck('value', 'key'),
+            'ecom_setting' => EcommerceSetting::first(),
+            'ecom_capabilities' => EcommerceCapability::orderBy('sort_order')->get(),
         ];
 
         return response()->json($data);

@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="icon" type="image/png" href="/icon.png">
   <title>The Code Factory — Technology Infrastructure Partner</title>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
@@ -20,6 +21,42 @@
       --white: #F8FAFC;
       --muted: #94A3B8;
       --border: rgba(0, 180, 216, 0.18);
+      --shopify-green: #96BF56;
+      --shopify-green-dim: rgba(150, 191, 86, 0.08);
+      --shopify-green-border: rgba(150, 191, 86, 0.25);
+      --shopify-green-dot: rgba(150, 191, 86, 0.6);
+    }
+
+    /* ─── PAGE LOADER ─── */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      background: #040c18;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    .page-loader.loaded {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(0, 180, 216, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--cyan);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     *,
@@ -71,7 +108,7 @@
     }
 
     .hero-content {
-      flex: 1;
+      flex: 0 0 35%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -79,8 +116,7 @@
     }
 
     .hero-visual {
-      flex-shrink: 0;
-      width: 780px;
+      flex: 1;
       height: 780px;
       position: relative;
       display: flex;
@@ -642,6 +678,235 @@
       color: var(--muted);
       line-height: 1.6;
       font-weight: 300;
+    }
+
+    /* ─── SHOPIFY / E-COMMERCE ─── */
+    .ecommerce {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 60px;
+    }
+
+    .ec-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 64px;
+    }
+
+    .ec-header .section-label { justify-content: center; }
+
+    .ec-header .section-title {
+      white-space: normal;
+      margin-top: 4px;
+    }
+
+    .ec-header p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-top: 20px;
+    }
+
+    .ec-partner-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+      background: var(--shopify-green-dim);
+      border: 1px solid var(--shopify-green-border);
+      border-radius: 12px;
+      padding: 28px 40px;
+      margin-bottom: 2px;
+    }
+
+    .ec-partner-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ec-partner-logo {
+      width: 36px; height: 36px;
+      background: var(--shopify-green);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ec-partner-logo svg { width: 20px; height: 20px; }
+
+    .ec-partner-name {
+      font-family: 'Lexend', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.2px;
+    }
+
+    .ec-partner-sub {
+      font-family: 'Lexend', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--shopify-green);
+      margin-top: 2px;
+    }
+
+    .ec-stats-inline {
+      display: flex;
+      gap: 0;
+      border-left: 1px solid var(--shopify-green-border);
+      padding-left: 32px;
+    }
+
+    .ec-stat-inline {
+      padding: 0 28px;
+      border-right: 1px solid var(--shopify-green-border);
+      text-align: center;
+    }
+
+    .ec-stat-inline:last-child { border-right: none; padding-right: 0; }
+    .ec-stat-inline:first-child { padding-left: 0; }
+
+    .ec-stat-inline .n {
+      font-family: 'Lexend', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    .ec-stat-inline .n em {
+      color: var(--cyan);
+      font-style: normal;
+    }
+
+    .ec-stat-inline .l {
+      font-family: 'Lexend', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .ec-verticals {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 20px 40px;
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      margin-bottom: 48px;
+    }
+
+    .ec-verticals-label {
+      font-family: 'Lexend', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    .ec-chip {
+      font-family: 'Lexend', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .ec-capabilities {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .ec-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 28px 32px;
+      background: var(--navy-mid);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      transition: background 0.25s;
+    }
+
+    .ec-row:hover { background: var(--navy-light); }
+
+    .ec-row-num {
+      font-family: 'Lexend', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      flex-shrink: 0;
+      padding-top: 3px;
+      min-width: 24px;
+    }
+
+    .ec-row-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--cyan-dim);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ec-row-icon svg { width: 16px; height: 16px; }
+
+    .ec-row-body { flex: 1; min-width: 0; }
+
+    .ec-row-body h3 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      margin-bottom: 4px;
+    }
+
+    .ec-row-body p {
+      font-family: 'Lexend', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .ec-row-arrow {
+      font-size: 14px;
+      color: var(--border);
+      align-self: center;
+      flex-shrink: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .ec-row:hover .ec-row-arrow {
+      color: var(--cyan);
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 900px) {
+      .ecommerce { padding: 72px 24px; }
+      .ec-partner-banner { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .ec-stats-inline { border-left: none; padding-left: 0; border-top: 1px solid var(--shopify-green-border); padding-top: 20px; width: 100%; justify-content: space-between; }
+      .ec-capabilities { grid-template-columns: 1fr; }
     }
 
     /* ─── PROJECTS ─── */
@@ -2175,6 +2440,10 @@
 </head>
 
 <body>
+  <!-- Page Loader -->
+  <div id="page-loader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -2184,6 +2453,7 @@
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#process">Process</a></li>
+      <li><a href="#ecommerce">Shopify</a></li>
       <li><a href="#projects">Our Work</a></li>
       <li><a href="#why">Why TCF</a></li>
       <li><a href="#markets">Markets</a></li>
@@ -2201,6 +2471,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#services" onclick="closeMobileMenu()">Services</a>
     <a href="#process" onclick="closeMobileMenu()">Process</a>
+    <a href="#ecommerce" onclick="closeMobileMenu()">Shopify</a>
     <a href="#projects" onclick="closeMobileMenu()">Our Work</a>
     <a href="#why" onclick="closeMobileMenu()">Why TCF</a>
     <a href="#markets" onclick="closeMobileMenu()">Markets</a>
@@ -2402,6 +2673,46 @@
     </div>
   </section>
 
+  <!-- E-COMMERCE -->
+  <section class="ecommerce" id="ecommerce" aria-labelledby="ecommerce-heading">
+    <header class="ec-header reveal">
+      <div class="section-label" id="ecomLabel">E-Commerce Expertise</div>
+      <h2 id="ecommerce-heading" class="section-title">We build stores<br/>that <span class="accent">sell.</span></h2>
+      <p id="ecomDescription">A certified Shopify Partner with 9+ years of e-commerce delivery — from first storefronts to enterprise-scale platforms across MENA and beyond.</p>
+    </header>
+
+    <div class="reveal">
+      <div class="ec-partner-banner">
+        <div class="ec-partner-left">
+          <div class="ec-partner-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+              <path d="M15.5 4.5c-.3-2-1.8-3-3-3-.5 0-1 .2-1.3.5-.6.7-.9 1.8-1 2.8L15.5 4.5z" fill="white" opacity="0.9"/>
+              <path d="M17 5l-1.5-.2c0 .1 0 .2-.1.3l-5.2-.7c0-.1-.1-.2-.1-.4L8.5 4C7 4 6 5.3 5.5 7L4 19l12 2.5L20 19 17 5z" fill="white" opacity="0.85"/>
+              <path d="M14 7.5c-.7-.2-1.5-.3-2-.3-1.1 0-1.8.4-1.8 1.1 0 1.5 3.8 1.8 3.8 4.8 0 2.4-1.5 3.9-3.6 3.9-1.2 0-2.5-.5-3.2-1.1l.6-2c.7.6 1.7 1 2.6 1 .8 0 1.4-.4 1.4-1.1 0-1.8-3.7-1.9-3.7-4.7 0-2.3 1.7-3.8 4-3.8.9 0 1.8.2 2.4.5L14 7.5z" fill="#0F172A" opacity="0.7"/>
+            </svg>
+          </div>
+          <div class="ec-partner-text">
+            <div class="ec-partner-name" id="ecomPartnerName">Official Shopify Partner</div>
+            <div class="ec-partner-sub" id="ecomPartnerSub">Certified since 2016 · 20+ stores delivered</div>
+          </div>
+        </div>
+
+        <div class="ec-stats-inline" aria-label="Key statistics" id="ecomStats">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <div class="ec-verticals" id="ecomVerticals">
+        <span class="ec-verticals-label">Industries</span>
+        <!-- Populated via JS -->
+      </div>
+    </div>
+
+    <ul class="ec-capabilities reveal" role="list" id="ecomCapabilities">
+      <!-- Populated via JS -->
+    </ul>
+  </section>
+
   <!-- PROJECTS -->
   <section class="projects" id="projects">
     <div class="projects-header reveal">
@@ -2410,72 +2721,7 @@
         <h2 class="section-title">Real products. <span class="accent">Real impact.</span></h2>
       </div>
     </div>
-    <div class="projects-grid reveal" id="projectsGrid">
-      <div class="project-card featured">
-        <div>
-          <span class="project-tag">Featured · Booking Platform</span>
-          <h3>Sala App</h3>
-          <p>A full-featured booking and entertainment management platform for bowling alleys and karting tracks.
-            Customers book online, operators manage capacity, and revenue flows seamlessly — all within one system built
-            and maintained by TCF.</p>
-          <div class="project-meta">
-            <span class="meta-tag">React Native</span>
-            <span class="meta-tag">Node.js</span>
-            <span class="meta-tag">PostgreSQL</span>
-            <span class="meta-tag">Payment Integration</span>
-          </div>
-        </div>
-        <div class="project-mockup"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00B4D8"
-            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" />
-            <path d="M8 21h8" />
-            <path d="M12 17v4" />
-            <path d="M7 8h.01M12 8h.01M17 8h.01" />
-          </svg></div>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">Retail · Inspection Tool</span>
-        <h3>Carrefour Inspector</h3>
-        <p>An internal mobile tool for store inspection workflows — digitizing checklists, tracking issues, and
-          generating reports for Carrefour retail operations.</p>
-        <div class="project-meta">
-          <span class="meta-tag">Mobile App</span>
-          <span class="meta-tag">Offline Support</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">E-commerce · Consumer App</span>
-        <h3>Dukkan El Baba</h3>
-        <p>A consumer-facing shopping app with curated product discovery, seamless checkout, and vendor management tools
-          built from the ground up.</p>
-        <div class="project-meta">
-          <span class="meta-tag">iOS &amp; Android</span>
-          <span class="meta-tag">Vendor Dashboard</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">Placeholder · Mobile App</span>
-        <h3>App Name</h3>
-        <p>A brief description of what this app does, who it serves, and the problem it solves. Replace this with the
-          real project details when ready.</p>
-        <div class="project-meta">
-          <span class="meta-tag">React Native</span>
-          <span class="meta-tag">Node.js</span>
-          <span class="meta-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">Placeholder · Web Platform</span>
-        <h3>App Name</h3>
-        <p>A brief description of what this platform does, the business it supports, and the impact it delivers. Replace
-          with real content when ready.</p>
-        <div class="project-meta">
-          <span class="meta-tag">Web App</span>
-          <span class="meta-tag">API Integration</span>
-          <span class="meta-tag">Coming Soon</span>
-        </div>
-      </div>
-    </div>
+    <div class="projects-grid reveal" id="projectsGrid"></div>
   </section>
 
   <!-- WHY TCF -->

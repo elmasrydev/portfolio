@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PresenceSetting extends Model
+class EcommerceCapability extends Model
 {
     protected $guarded = ['id'];
 }
