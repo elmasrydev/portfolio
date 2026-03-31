@@ -22,5 +22,9 @@ class AppServiceProvider extends ServiceProvider
         if (app()->environment('production')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
+
+        if ($url = config('app.url')) {
+            \Illuminate\Support\Facades\URL::forceRootUrl($url);
+        }
     }
 }
