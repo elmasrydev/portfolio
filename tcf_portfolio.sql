@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 31, 2026 at 08:09 AM
+-- Generation Time: Mar 31, 2026 at 09:28 AM
 -- Server version: 10.11.16-MariaDB-cll-lve
 -- PHP Version: 8.1.34
 
@@ -157,6 +157,16 @@ CREATE TABLE `ecommerce_capabilities` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `ecommerce_capabilities`
+--
+
+INSERT INTO `ecommerce_capabilities` (`id`, `num`, `title`, `description`, `icon_svg`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, '01', 'Custom Storefronts', 'Tailored Shopify themes and headless commerce solutions built for performance and brand identity.', '<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#00B4D8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"></line><line x1=\"9\" y1=\"21\" x2=\"9\" y2=\"9\"></line></svg>', 0, '2026-03-31 16:09:49', '2026-03-31 16:09:49'),
+(2, '02', 'App Development', 'Private and public Shopify apps to extend functionality, automate workflows, and connect to third-party APIs.', '<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#00B4D8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\" ry=\"2\"></rect><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"></line><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"></line></svg>', 1, '2026-03-31 16:09:49', '2026-03-31 16:09:49'),
+(3, '03', 'Migrations', 'Seamlessly moving your business from Magento, WooCommerce, or BigCommerce to Shopify with zero data loss.', '<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#00B4D8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 1l4 4-4 4\"></path><path d=\"M3 11V9a4 4 0 0 1 4-4h14\"></path><path d=\"M7 23l-4-4 4-4\"></path><path d=\"M21 13v2a4 4 0 0 1-4 4H3\"></path></svg>', 2, '2026-03-31 16:09:49', '2026-03-31 16:09:49'),
+(4, '04', 'Optimization', 'Conversion rate optimization (CRO) and speed performance audits to ensure your store scales efficiently.', '<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#00B4D8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\"></line><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\"></line><line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\"></line></svg>', 3, '2026-03-31 16:09:49', '2026-03-31 16:09:49');
+
 -- --------------------------------------------------------
 
 --
@@ -180,6 +190,13 @@ CREATE TABLE `ecommerce_settings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ecommerce_settings`
+--
+
+INSERT INTO `ecommerce_settings` (`id`, `label`, `title`, `description`, `partner_name`, `partner_sub`, `stat1_n`, `stat1_l`, `stat2_n`, `stat2_l`, `stat3_n`, `stat3_l`, `verticals`, `created_at`, `updated_at`) VALUES
+(1, 'E-Commerce Expertise', 'Scale your business with <span class=\"accent\">Shopify Plus.</span>', 'We help ambitious brands launch, migrate, and scale on Shopify. From custom theme development to complex app integrations and checkout extensibility, we deliver high-converting commerce experiences.', 'Official Shopify Partner', 'Expertise in high-growth commerce', '45+', 'Stores Launched', '7+', 'Official partner ', NULL, NULL, '[\"Health & Beauty\",\"Home & Decor\",\"Electronics\",\"F&B\",\"baby stores\"]', '2026-03-31 16:09:49', '2026-03-31 17:06:28');
 
 -- --------------------------------------------------------
 
@@ -205,6 +222,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `hero_settings` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `label` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `subtitle` text DEFAULT NULL,
   `cta_text` varchar(255) DEFAULT NULL,
@@ -220,8 +238,8 @@ CREATE TABLE `hero_settings` (
 -- Dumping data for table `hero_settings`
 --
 
-INSERT INTO `hero_settings` (`id`, `title`, `subtitle`, `cta_text`, `cta_url`, `secondary_cta_text`, `secondary_cta_url`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'Building the next generation of <span class=\"accent\">digital excellence.</span>', 'The Code Factory (TCF) is an elite engineering hub based in Egypt, serving the Gulf\'s most ambitious enterprises. We build high-performance mobile apps, web platforms, and custom software that drive real business impact.', 'Start Your Project', '#contact', 'View Our Work', '#projects', 1, '2026-03-18 22:19:13', '2026-03-30 03:57:29');
+INSERT INTO `hero_settings` (`id`, `label`, `title`, `subtitle`, `cta_text`, `cta_url`, `secondary_cta_text`, `secondary_cta_url`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'TCF Technologies', 'Building the next generation of <span class=\"accent\">digital excellence.</span>', 'The Code Factory (TCF) is an elite engineering hub based in Egypt, serving the Gulf\'s most ambitious enterprises. We build high-performance mobile apps, web platforms, and custom software that drive real business impact.', 'Start Your Project', '#contact', 'View Our Work', '#projects', 1, '2026-03-18 22:19:13', '2026-03-31 16:25:12');
 
 -- --------------------------------------------------------
 
@@ -417,7 +435,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2026_03_17_201604_create_presence_locations_table', 1),
 (22, '2026_03_17_201604_create_presence_settings_table', 1),
 (23, '2026_03_31_075808_create_ecommerce_settings_table', 2),
-(24, '2026_03_31_075813_create_ecommerce_capabilities_table', 2);
+(24, '2026_03_31_075813_create_ecommerce_capabilities_table', 2),
+(25, '2026_03_31_122115_add_label_to_hero_settings_table', 3);
 
 -- --------------------------------------------------------
 
@@ -665,13 +684,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('E5jWTbyc5Ole271A7H8gMCPuIEIRcIKswVkpnPv7', 1, '41.64.34.63', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoicmpFU3dNMnd1SmZVWEx1VGVaQjF3SDRPdXI5SDhzTThDeEUza3NlYSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiMjZlMzk3MTEyZmMwNmMwZWY5YzBmMWMyZDc0ZDU3NTc2MTgyOTIzZjllYWJkNTFkY2MzODMxYjMyOGNlMGRhYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjg6ImZpbGFtZW50IjthOjA6e319', 1774956827),
-('G5jlA0AE5EkOvkD2vCsEcpcTbIvP77XOviYlbCGq', NULL, '156.195.197.83', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQURRbGJGZ2E0MUt0WnNtR1kzd3ZWMzFvblkyblNYbFUwZGRKV29uWCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1774946747),
+('E5jWTbyc5Ole271A7H8gMCPuIEIRcIKswVkpnPv7', 1, '41.64.34.63', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoicmpFU3dNMnd1SmZVWEx1VGVaQjF3SDRPdXI5SDhzTThDeEUza3NlYSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiMjZlMzk3MTEyZmMwNmMwZWY5YzBmMWMyZDc0ZDU3NTc2MTgyOTIzZjllYWJkNTFkY2MzODMxYjMyOGNlMGRhYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTQ6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tL3B1YmxpYy9hZG1pbi9wb3J0Zm9saW8tY3RhcyI7czo1OiJyb3V0ZSI7czo0NToiZmlsYW1lbnQuYWRtaW4ucmVzb3VyY2VzLnBvcnRmb2xpby1jdGFzLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo4OiJmaWxhbWVudCI7YTowOnt9fQ==', 1774962551),
 ('ihDDObacUV5QsRWiJ6MWE4nIuuCq4e25SBNiKxpK', NULL, '159.203.37.123', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTFR2aW40TXpmQmlzVlVKbm5rckRheUV4bUQ1ck52WXgySVhCSExPMiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzA6Imh0dHBzOi8vd3d3LnRjZi5lbGJvb2tsZXRzLmNvbSI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1774958934),
-('jNg7uvVcnxHCScRGEpyFMlAgnhMvhLMG5wUwUISO', NULL, '217.55.194.129', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUnMwZnR1QU13SGpPNExHVXNGVnZDdmVkalB1S2NFOW83MTJUYllyWSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1774950558),
-('LrKJoqvonxfIqHUZw4FhIv2OPXocb1OhrXWs1D5Y', NULL, '217.55.194.129', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibDg2WTdXNjJ1V21GWXRqWHphc2FONHNmT1RRdUllejhTNDFNWldFdSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1774954212),
-('Q1n2bykv1Xaa4lRR1SbFZM0PK1rBZJJKH8BggBTd', NULL, '217.55.194.129', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZEh6Q3RJQjc3d2tGZE9GVm1WOGNUTjZ3eGtLaGdFTUM0c2NDc1ViSyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1774946271),
-('XufAepa996CvMKqTvVVrkl38zsWNW3uBVYJqYYct', 1, '156.195.197.83', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiekVZQVZDTG9YOVd1ekFaQ2xOdzU2M1FJbTQwM3NqVkFjVXp2VkdIQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiMjZlMzk3MTEyZmMwNmMwZWY5YzBmMWMyZDc0ZDU3NTc2MTgyOTIzZjllYWJkNTFkY2MzODMxYjMyOGNlMGRhYiI7czo4OiJmaWxhbWVudCI7YTowOnt9fQ==', 1774958649);
+('XufAepa996CvMKqTvVVrkl38zsWNW3uBVYJqYYct', 1, '156.195.197.83', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiekVZQVZDTG9YOVd1ekFaQ2xOdzU2M1FJbTQwM3NqVkFjVXp2VkdIQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHBzOi8vdGNmLmVsYm9va2xldHMuY29tIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2NDoiMjZlMzk3MTEyZmMwNmMwZWY5YzBmMWMyZDc0ZDU3NTc2MTgyOTIzZjllYWJkNTFkY2MzODMxYjMyOGNlMGRhYiI7czo4OiJmaWxhbWVudCI7YTowOnt9fQ==', 1774961342);
 
 -- --------------------------------------------------------
 
@@ -1033,13 +1048,13 @@ ALTER TABLE `contact_submissions`
 -- AUTO_INCREMENT for table `ecommerce_capabilities`
 --
 ALTER TABLE `ecommerce_capabilities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_settings`
 --
 ALTER TABLE `ecommerce_settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1081,7 +1096,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
