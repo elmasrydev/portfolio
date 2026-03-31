@@ -538,7 +538,27 @@ function renderProcess(steps) {
 
 function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
-    if (grid && projects.length > 0) {
+    const section = document.getElementById('projects');
+    const navLinks = document.querySelectorAll('a[href="#projects"]');
+
+    if (!projects || projects.length === 0) {
+        if (section) section.style.display = 'none';
+        navLinks.forEach(link => {
+            const li = link.closest('li');
+            if (li) li.style.display = 'none';
+            else link.style.display = 'none';
+        });
+        return;
+    }
+
+    if (grid) {
+        if (section) section.style.display = 'block';
+        navLinks.forEach(link => {
+            const li = link.closest('li');
+            if (li) li.style.display = 'block';
+            else link.style.display = 'inline-block';
+        });
+
         grid.innerHTML = projects.map(project => {
             const isFeatured = Boolean(project.is_featured);
             return `
