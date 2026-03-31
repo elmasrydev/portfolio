@@ -24,8 +24,6 @@ services:
     container_name: tcf-portfolio-db
     restart: unless-stopped
     tty: true
-    ports:
-      - "3306:3306"
     environment:
       MARIADB_DATABASE: tcf_portfolio
       MARIADB_USER: tcf_user
