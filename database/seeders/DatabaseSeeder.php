@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123123123'),
         ]);
 
-        $this->call(LandingPageSeeder::class);
+        $this->call([
+            LandingPageSeeder::class,
+            EcommerceSeeder::class,
+        ]);
     }
 }
