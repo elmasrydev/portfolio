@@ -2,6 +2,7 @@ FROM php:8.4-apache
 
 # 1. Install dependencies
 RUN apt-get update && apt-get install -y \
+    libicu-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -15,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 3. Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
 
 # 4. Enable Apache rewrite module
 RUN a2enmod rewrite
