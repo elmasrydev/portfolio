@@ -250,8 +250,8 @@ async function renderWorldMap(locations) {
 
     const projection = d3.geoNaturalEarth1()
         .rotate([-10, 0])
-        .scale(W / 4.2)
-        .translate([W / 2, H / 1.75]);
+        .scale(W / 4.8)
+        .translate([W / 2, H / 1.35]);
 
     const pathGen = d3.geoPath().projection(projection);
 
@@ -378,24 +378,36 @@ function renderPortfolioCta(cta) {
     const section = document.querySelector('.portfolio-cta');
     if (section && cta) {
         const labelEl = section.querySelector('.section-label');
-        const titleEl = section.querySelector('h2');
-        const descEl = section.querySelector('.portfolio-left p');
+        const titleEl = document.getElementById('portfolio-heading') || section.querySelector('h2');
+        const descEl = document.getElementById('portfolio-desc') || section.querySelector('.portfolio-left p');
         const btnEl = section.querySelector('.btn-download');
 
         if (labelEl && cta.label) labelEl.textContent = cta.label;
         if (titleEl && cta.heading) titleEl.innerHTML = cta.heading;
         if (descEl && cta.description) descEl.textContent = cta.description;
+        
         if (btnEl) {
             if (cta.button_text) btnEl.textContent = cta.button_text;
             if (cta.pdf_url) {
                 btnEl.href = cta.pdf_url;
+                btnEl.style.display = 'inline-flex';
                 btnEl.target = "_blank";
-                // Only use download attribute if it's the same origin
-                if (cta.pdf_url.startsWith(window.location.origin) || cta.pdf_url.startsWith('/')) {
+                if (cta.pdf_url.startsWith(window.location.origin) || cta.pdf_url.startsWith('/') || !cta.pdf_url.startsWith('http')) {
                     btnEl.setAttribute('download', 'Portfolio.pdf');
                 }
             } else {
                 btnEl.style.display = 'none';
+            }
+        }
+        
+        // Also update hero download button if it exists
+        const heroBtn = document.querySelector('.btn-download-hero');
+        if (heroBtn && cta.pdf_url) {
+            heroBtn.href = cta.pdf_url;
+            heroBtn.style.display = 'inline-flex';
+            heroBtn.target = "_blank";
+            if (cta.pdf_url.startsWith(window.location.origin) || cta.pdf_url.startsWith('/') || !cta.pdf_url.startsWith('http')) {
+                heroBtn.setAttribute('download', 'Portfolio.pdf');
             }
         }
     }

@@ -1929,6 +1929,7 @@
       width: 320px;
       height: 320px;
       background: radial-gradient(circle, rgba(0, 180, 216, 0.15) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .portfolio-left h2 {
@@ -1972,6 +1973,8 @@
       box-shadow: 0 0 28px rgba(0, 180, 216, 0.3);
       white-space: nowrap;
       flex-shrink: 0;
+      position: relative;
+      z-index: 2;
     }
 
     .btn-download:hover {
@@ -2502,6 +2505,7 @@
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">Start a Project</a>
         <a href="#projects" class="btn-ghost">View Our Work</a>
+        <a href="portfolio.pdf" download class="btn-download-hero" style="display: none;">⬇ Portfolio</a>
       </div>
       <div class="hero-stats" id="heroStats">
         <div class="stat-item">
@@ -3118,8 +3122,8 @@
     <div class="portfolio-inner reveal">
       <div class="portfolio-left">
         <div class="section-label">Company Portfolio</div>
-        <h2>See the full scope of <span style="color:var(--cyan)">our work.</span></h2>
-        <p>Download our company portfolio for a detailed overview of our services, past projects, technical
+        <h2 id="portfolio-heading">See the full scope of <span style="color:var(--cyan)">our work.</span></h2>
+        <p id="portfolio-desc">Download our company portfolio for a detailed overview of our services, past projects, technical
           capabilities, and client case studies.</p>
 
       </div>
@@ -3180,24 +3184,24 @@
         </div>
       </div>
 
-      <form class="contact-form" onsubmit="handleContactSubmit(event)">
+      <form class="contact-form" id="contactForm">
         <div class="form-row">
           <div class="form-group">
             <label for="cf-name">Full Name</label>
-            <input type="text" id="cf-name" placeholder="Ahmed Al-Rashid" required />
+            <input type="text" id="cf-name" name="name" placeholder="Ahmed Al-Rashid" required />
           </div>
           <div class="form-group">
             <label for="cf-email">Email Address</label>
-            <input type="email" id="cf-email" placeholder="ahmed@company.com" required />
+            <input type="email" id="cf-email" name="email" placeholder="ahmed@company.com" required />
           </div>
         </div>
         <div class="form-group">
           <label for="cf-company">Company / Organization</label>
-          <input type="text" id="cf-company" placeholder="Your company name" />
+          <input type="text" id="cf-company" name="company" placeholder="Your company name" />
         </div>
         <div class="form-group">
           <label for="cf-service">Service You're Interested In</label>
-          <select id="cf-service">
+          <select id="cf-service" name="service">
             <option value="" disabled selected>Select a service</option>
             <option>Custom Development</option>
             <option>UX Services</option>
@@ -3208,7 +3212,7 @@
         </div>
         <div class="form-group">
           <label for="cf-message">Tell Us About Your Project</label>
-          <textarea id="cf-message" rows="4"
+          <textarea id="cf-message" name="message" rows="4"
             placeholder="Brief description of what you're building or the problem you need solved…" required></textarea>
         </div>
         <button type="submit" class="form-submit">

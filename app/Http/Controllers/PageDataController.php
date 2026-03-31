@@ -62,7 +62,7 @@ class PageDataController extends Controller
             'portfolio_cta' => (function () {
                 $cta = PortfolioCta::where('is_active', true)->first();
                 if ($cta) {
-                    $cta->pdf_url = $cta->getFirstMediaUrl('portfolio_pdf');
+                    $cta->pdf_url = $cta->getFirstMediaUrl('portfolio_pdf') ?: asset('portfolio.pdf');
                 }
 
                 return $cta;

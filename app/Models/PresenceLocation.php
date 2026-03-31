@@ -10,5 +10,5 @@ class PresenceLocation extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 }

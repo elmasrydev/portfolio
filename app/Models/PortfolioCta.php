@@ -8,7 +8,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class PortfolioCta extends Model implements HasMedia
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     use InteractsWithMedia;
 }
