@@ -22,6 +22,8 @@ class HeroSettingResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('label')
+                    ->label('Pre-title / Label'),
                 Forms\Components\Textarea::make('title')
                     ->required()
                     ->helperText('Use <span class="accent">...</span> for highlighted words.'),

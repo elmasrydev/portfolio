@@ -99,7 +99,7 @@
       flex-direction: row !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 60px;
+      /* gap: 60px; */
       padding: 140px 60px 100px;
       position: relative;
       overflow: hidden;
@@ -108,7 +108,7 @@
     }
 
     .hero-content {
-      flex: 0 0 35%;
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -116,8 +116,9 @@
     }
 
     .hero-visual {
-      flex: 1;
-      height: 780px;
+      flex-shrink: 0;
+      width: 660px;
+      height: 660px;
       position: relative;
       display: flex;
       align-items: center;
@@ -694,7 +695,9 @@
       margin: 0 auto 64px;
     }
 
-    .ec-header .section-label { justify-content: center; }
+    .ec-header .section-label {
+      justify-content: center;
+    }
 
     .ec-header .section-title {
       white-space: normal;
@@ -729,14 +732,20 @@
     }
 
     .ec-partner-logo {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       background: var(--shopify-green);
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
     }
 
-    .ec-partner-logo svg { width: 20px; height: 20px; }
+    .ec-partner-logo svg {
+      width: 20px;
+      height: 20px;
+    }
 
     .ec-partner-name {
       font-family: 'Lexend', sans-serif;
@@ -767,8 +776,14 @@
       text-align: center;
     }
 
-    .ec-stat-inline:last-child { border-right: none; padding-right: 0; }
-    .ec-stat-inline:first-child { padding-left: 0; }
+    .ec-stat-inline:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .ec-stat-inline:first-child {
+      padding-left: 0;
+    }
 
     .ec-stat-inline .n {
       font-family: 'Lexend', sans-serif;
@@ -821,8 +836,8 @@
       font-size: 11px;
       font-weight: 500;
       color: var(--muted);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       padding: 4px 12px;
       border-radius: 999px;
     }
@@ -847,7 +862,9 @@
       transition: background 0.25s;
     }
 
-    .ec-row:hover { background: var(--navy-light); }
+    .ec-row:hover {
+      background: var(--navy-light);
+    }
 
     .ec-row-num {
       font-family: 'Lexend', sans-serif;
@@ -861,17 +878,26 @@
     }
 
     .ec-row-icon {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
       background: var(--cyan-dim);
       border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
     }
 
-    .ec-row-icon svg { width: 16px; height: 16px; }
+    .ec-row-icon svg {
+      width: 16px;
+      height: 16px;
+    }
 
-    .ec-row-body { flex: 1; min-width: 0; }
+    .ec-row-body {
+      flex: 1;
+      min-width: 0;
+    }
 
     .ec-row-body h3 {
       font-family: 'Lexend', sans-serif;
@@ -903,10 +929,28 @@
     }
 
     @media (max-width: 900px) {
-      .ecommerce { padding: 72px 24px; }
-      .ec-partner-banner { flex-direction: column; align-items: flex-start; gap: 24px; }
-      .ec-stats-inline { border-left: none; padding-left: 0; border-top: 1px solid var(--shopify-green-border); padding-top: 20px; width: 100%; justify-content: space-between; }
-      .ec-capabilities { grid-template-columns: 1fr; }
+      .ecommerce {
+        padding: 72px 24px;
+      }
+
+      .ec-partner-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .ec-stats-inline {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--shopify-green-border);
+        padding-top: 20px;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .ec-capabilities {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ─── PROJECTS ─── */
@@ -2505,7 +2549,7 @@
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">Start a Project</a>
         <a href="#projects" class="btn-ghost">View Our Work</a>
-        <a href="portfolio.pdf" download class="btn-download-hero" style="display: none;">⬇ Portfolio</a>
+
       </div>
       <div class="hero-stats" id="heroStats">
         <div class="stat-item">
@@ -2525,7 +2569,7 @@
 
     <!-- RIGHT: Dynamic shape -->
     <div class="hero-visual">
-      <canvas id="heroCanvas" width="780" height="780"></canvas>
+      <canvas id="heroCanvas" width="660" height="660"></canvas>
     </div>
   </section>
 
@@ -2681,8 +2725,9 @@
   <section class="ecommerce" id="ecommerce" aria-labelledby="ecommerce-heading">
     <header class="ec-header reveal">
       <div class="section-label" id="ecomLabel">E-Commerce Expertise</div>
-      <h2 id="ecommerce-heading" class="section-title">We build stores<br/>that <span class="accent">sell.</span></h2>
-      <p id="ecomDescription">A certified Shopify Partner with 9+ years of e-commerce delivery — from first storefronts to enterprise-scale platforms across MENA and beyond.</p>
+      <h2 id="ecommerce-heading" class="section-title">We build stores<br />that <span class="accent">sell.</span></h2>
+      <p id="ecomDescription">A certified Shopify Partner with 9+ years of e-commerce delivery — from first storefronts
+        to enterprise-scale platforms across MENA and beyond.</p>
     </header>
 
     <div class="reveal">
@@ -2690,9 +2735,14 @@
         <div class="ec-partner-left">
           <div class="ec-partner-logo" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-              <path d="M15.5 4.5c-.3-2-1.8-3-3-3-.5 0-1 .2-1.3.5-.6.7-.9 1.8-1 2.8L15.5 4.5z" fill="white" opacity="0.9"/>
-              <path d="M17 5l-1.5-.2c0 .1 0 .2-.1.3l-5.2-.7c0-.1-.1-.2-.1-.4L8.5 4C7 4 6 5.3 5.5 7L4 19l12 2.5L20 19 17 5z" fill="white" opacity="0.85"/>
-              <path d="M14 7.5c-.7-.2-1.5-.3-2-.3-1.1 0-1.8.4-1.8 1.1 0 1.5 3.8 1.8 3.8 4.8 0 2.4-1.5 3.9-3.6 3.9-1.2 0-2.5-.5-3.2-1.1l.6-2c.7.6 1.7 1 2.6 1 .8 0 1.4-.4 1.4-1.1 0-1.8-3.7-1.9-3.7-4.7 0-2.3 1.7-3.8 4-3.8.9 0 1.8.2 2.4.5L14 7.5z" fill="#0F172A" opacity="0.7"/>
+              <path d="M15.5 4.5c-.3-2-1.8-3-3-3-.5 0-1 .2-1.3.5-.6.7-.9 1.8-1 2.8L15.5 4.5z" fill="white"
+                opacity="0.9" />
+              <path
+                d="M17 5l-1.5-.2c0 .1 0 .2-.1.3l-5.2-.7c0-.1-.1-.2-.1-.4L8.5 4C7 4 6 5.3 5.5 7L4 19l12 2.5L20 19 17 5z"
+                fill="white" opacity="0.85" />
+              <path
+                d="M14 7.5c-.7-.2-1.5-.3-2-.3-1.1 0-1.8.4-1.8 1.1 0 1.5 3.8 1.8 3.8 4.8 0 2.4-1.5 3.9-3.6 3.9-1.2 0-2.5-.5-3.2-1.1l.6-2c.7.6 1.7 1 2.6 1 .8 0 1.4-.4 1.4-1.1 0-1.8-3.7-1.9-3.7-4.7 0-2.3 1.7-3.8 4-3.8.9 0 1.8.2 2.4.5L14 7.5z"
+                fill="#0F172A" opacity="0.7" />
             </svg>
           </div>
           <div class="ec-partner-text">
@@ -3123,7 +3173,8 @@
       <div class="portfolio-left">
         <div class="section-label">Company Portfolio</div>
         <h2 id="portfolio-heading">See the full scope of <span style="color:var(--cyan)">our work.</span></h2>
-        <p id="portfolio-desc">Download our company portfolio for a detailed overview of our services, past projects, technical
+        <p id="portfolio-desc">Download our company portfolio for a detailed overview of our services, past projects,
+          technical
           capabilities, and client case studies.</p>
 
       </div>
@@ -3303,7 +3354,8 @@
             <li class="social-item" style="display: none;">
               <a href="#" class="social-btn facebook" target="_blank" style="display:flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 24 24" fill="#1877F2" width="14" height="14">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
                 Facebook
               </a>
@@ -3311,7 +3363,8 @@
             <li class="social-item" style="display: none;">
               <a href="#" class="social-btn twitter" target="_blank" style="display:flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 24 24" fill="#1DA1F2" width="14" height="14">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  <path
+                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                 </svg>
                 Twitter
               </a>
@@ -3319,7 +3372,8 @@
             <li class="social-item" style="display: none;">
               <a href="#" class="social-btn linkedin" target="_blank" style="display:flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 24 24" fill="#0A66C2" width="14" height="14">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  <path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
                 LinkedIn
               </a>
@@ -3327,7 +3381,8 @@
             <li class="social-item" style="display: none;">
               <a href="#" class="social-btn instagram" target="_blank" style="display:flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 24 24" fill="#E4405F" width="14" height="14">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
                 Instagram
               </a>

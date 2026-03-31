@@ -25,6 +25,7 @@ class LandingPageSeeder extends Seeder
     {
         // 1. Hero Settings
         HeroSetting::create([
+            'label' => 'Next Gen Digital Engineering Hub',
             'title' => 'Building the next generation of <span class="accent">digital excellence.</span>',
             'subtitle' => 'The Code Factory (TCF) is an elite engineering hub based in Egypt, serving the Gulf\'s most ambitious enterprises. We build high-performance mobile apps, web platforms, and custom software that drive real business impact.',
             'cta_text' => 'Start Your Project',
