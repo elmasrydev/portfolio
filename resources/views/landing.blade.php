@@ -3331,7 +3331,7 @@
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
-          <ul>
+          <ul class="footer-social">
             <li>
               <a href="#" class="dynamic-email" style="display:flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="1.8" stroke-linecap="round"
