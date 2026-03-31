@@ -10,6 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   @vite(['resources/css/app.css', 'resources/js/landing.js'])
+  <script>
+    window.app_url = "{{ url('/') }}";
+  </script>
   <style>
     :root {
       --navy: #0F172A;
