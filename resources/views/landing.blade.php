@@ -3393,7 +3393,7 @@
     </div>
     <div class="footer-bottom">
       <p>© 2025 The Code Factory. All rights reserved.</p>
-      <p>Built with <span>♥</span> in Egypt, delivered across the Gulf.</p>
+      <p>Built with <span>♥</span> in Egypt, delivered across the world.</p>
     </div>
   </footer>
 

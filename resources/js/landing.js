@@ -776,7 +776,13 @@ function renderPortfolioCta(cta) {
         const btnEl = section.querySelector('.btn-download');
 
         if (labelEl && cta.label) labelEl.textContent = cta.label;
-        if (titleEl && cta.heading) titleEl.innerHTML = cta.heading;
+        if (titleEl && cta.heading) {
+            let titleHtml = cta.heading;
+            if (!titleHtml.includes('<span')) {
+                titleHtml = titleHtml.replace('our work.', '<span style="color:var(--cyan)">our work.</span>');
+            }
+            titleEl.innerHTML = titleHtml;
+        }
         if (descEl && cta.description) descEl.textContent = cta.description;
         
         if (btnEl) {
@@ -825,7 +831,13 @@ function renderContact(contact) {
 
         if (contact.heading) {
             const headingEl = section.querySelector('h2');
-            if (headingEl) headingEl.innerHTML = contact.heading;
+            if (headingEl) {
+                let headingHtml = contact.heading;
+                if (!headingHtml.includes('<span')) {
+                    headingHtml = headingHtml.replace('that lasts.', '<span style="color:var(--cyan)">that lasts.</span>');
+                }
+                headingEl.innerHTML = headingHtml;
+            }
         }
 
         if (contact.sub_text) {
@@ -982,7 +994,7 @@ function renderEcommerce(setting, capabilities) {
             statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat1_n.replace('+', '<em>+</em>')}</div><div class="l">${setting.stat1_l}</div></div>`;
         }
         if (setting.stat2_n) {
-            statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat2_n}</div><div class="l">${setting.stat2_l}</div></div>`;
+            statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat2_n.replace('+', '<em>+</em>')}</div><div class="l">${setting.stat2_l}</div></div>`;
         }
         if (setting.stat3_n) {
             statsHtml += `<div class="ec-stat-inline"><div class="n">${setting.stat3_n.replace('+', '<em>+</em>')}</div><div class="l">${setting.stat3_l}</div></div>`;
