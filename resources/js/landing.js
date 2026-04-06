@@ -27,7 +27,7 @@ async function fetchPageData() {
     try {
         const response = await fetch('api/page-data');
         const data = await response.json();
-        
+
         if (data.hero) renderHero(data.hero, data.stats);
         if (data.marquee_items) renderMarquee(data.marquee_items);
         if (data.services) renderServices(data.services);
@@ -48,7 +48,7 @@ async function fetchPageData() {
         if (data.contact && data.contact.email) {
             renderEmails(data.contact.email);
         }
-        
+
         // Trigger reveal animations
         globalThis.dispatchEvent(new Event('content-loaded'));
 
@@ -103,7 +103,7 @@ function renderHero(hero, stats) {
     if (heroLabel) heroLabel.textContent = hero.label;
     if (heroTitle) heroTitle.innerHTML = hero.title_html || hero.title;
     if (heroSub) heroSub.textContent = hero.subtitle;
-    
+
     if (ctaPrimary && hero.cta_text) {
         ctaPrimary.textContent = hero.cta_text;
         ctaPrimary.href = hero.cta_url || '#contact';
@@ -112,7 +112,7 @@ function renderHero(hero, stats) {
         ctaSecondary.textContent = hero.secondary_cta_text;
         ctaSecondary.href = hero.secondary_cta_url || '#projects';
     }
-    
+
     // Stats
     const statsContainer = document.getElementById('heroStats');
     if (statsContainer && stats.length > 0) {
@@ -575,7 +575,8 @@ function renderProjects(projects) {
                     ${project.image_url ? `<img src="${project.image_url}" alt="${project.title}" class="project-img">` : (project.icon_svg || '')}
                 </div>
             </div>
-        `; }).join('');
+        `;
+        }).join('');
     }
 }
 
@@ -738,11 +739,11 @@ function renderBrands(brands) {
 function renderTestimonials(testimonials) {
     const row1 = document.getElementById('testimonialsRow1');
     const row2 = document.getElementById('testimonialsRow2');
-    
+
     if (row1 && testimonials.row1.length > 0) {
         row1.innerHTML = testimonials.row1.map(t => renderTestimonialCard(t)).join('');
     }
-    
+
     if (row2 && testimonials.row2.length > 0) {
         row2.innerHTML = testimonials.row2.map(t => renderTestimonialCard(t)).join('');
     }
@@ -784,7 +785,7 @@ function renderPortfolioCta(cta) {
             titleEl.innerHTML = titleHtml;
         }
         if (descEl && cta.description) descEl.textContent = cta.description;
-        
+
         if (btnEl) {
             if (cta.button_text) btnEl.textContent = cta.button_text;
             if (cta.pdf_url) {
@@ -798,12 +799,12 @@ function renderPortfolioCta(cta) {
                 btnEl.style.display = 'none';
             }
         }
-        
+
         // Also update hero, nav and mobile download buttons
         const sidebarCta = document.querySelector('.nav-cta');
         const mobileCta = document.querySelector('.mobile-cta');
         const heroBtn = document.querySelector('.btn-download-hero');
-        
+
         const updateBtn = (btn) => {
             if (!btn) return;
             if (cta.pdf_url) {
@@ -844,7 +845,7 @@ function renderContact(contact) {
             const subEl = section.querySelector('.contact-sub');
             if (subEl) subEl.textContent = contact.sub_text;
         }
-        
+
         // Channels
         const channels = section.querySelectorAll('.contact-channel');
         if (channels[0] && contact.email) {
@@ -868,19 +869,19 @@ function renderContact(contact) {
 function setupContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
-    
+
     // Use the inner form, not the container if needed
     const actualForm = form.tagName === 'FORM' ? form : form.querySelector('form');
     if (!actualForm) return;
 
     actualForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const btn = actualForm.querySelector('button');
         const originalText = btn.innerHTML;
         btn.innerHTML = 'Sending...';
         btn.disabled = true;
-        
+
         const formData = {
             name: actualForm.querySelector('[name="name"]').value,
             email: actualForm.querySelector('[name="email"]').value,
@@ -888,7 +889,7 @@ function setupContactForm() {
             service: actualForm.querySelector('[name="service"]').value,
             message: actualForm.querySelector('[name="message"]').value,
         };
-        
+
         try {
             const response = await fetch('/api/contact', {
                 method: 'POST',
@@ -899,9 +900,9 @@ function setupContactForm() {
                 },
                 body: JSON.stringify(formData)
             });
-            
+
             const result = await response.json();
-            
+
             if (response.ok) {
                 btn.innerHTML = 'Success!';
                 actualForm.reset();
@@ -973,7 +974,7 @@ function renderEcommerce(setting, capabilities) {
     const capabilitiesContainer = document.getElementById('ecomCapabilities');
 
     if (label && setting.label) label.textContent = setting.label;
-    
+
     if (title && setting.title) {
         // Apply accent span if not present and handle line break
         let titleHtml = setting.title;
@@ -1006,7 +1007,7 @@ function renderEcommerce(setting, capabilities) {
         const labelEl = verticalsContainer.querySelector('.ec-verticals-label');
         verticalsContainer.innerHTML = '';
         if (labelEl) verticalsContainer.appendChild(labelEl);
-        
+
         let verticalsList = setting.verticals;
         if (typeof verticalsList === 'string') {
             try {
@@ -1015,7 +1016,7 @@ function renderEcommerce(setting, capabilities) {
                 verticalsList = verticalsList.split(',').map(v => v.trim());
             }
         }
-        
+
         if (Array.isArray(verticalsList)) {
             verticalsList.forEach(v => {
                 const chip = document.createElement('span');

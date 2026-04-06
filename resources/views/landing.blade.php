@@ -71,6 +71,12 @@
       scroll-behavior: smooth;
     }
 
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
     body {
       background: var(--navy);
       color: var(--white);
@@ -233,11 +239,14 @@
     .hero-bg::after {
       content: '';
       position: absolute;
-      top: -120px;
-      right: -180px;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(0, 180, 216, 0.18) 0%, transparent 68%);
+      top: 50%;
+      right: -100px;
+      transform: translateY(-50%);
+      width: clamp(300px, 100vw, 660px);
+      height: clamp(300px, 100vw, 660px);
+      background: radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
       animation: pulse 6s ease-in-out infinite alternate;
     }
 
@@ -396,6 +405,7 @@
       gap: 64px;
       animation: marquee 26s linear infinite;
       white-space: nowrap;
+      width: max-content;
     }
 
     .marquee-track span {
@@ -454,8 +464,8 @@
       font-weight: 800;
       letter-spacing: -1px;
       line-height: 1.1;
-      white-space: nowrap;
-      max-width: none;
+      white-space: normal;
+      max-width: 100%;
     }
 
     .section-title .accent {
@@ -2098,28 +2108,25 @@
     /* Mobile drawer */
     .mobile-menu {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(15, 23, 42, 0.95);
+      inset: 0;
+      background: rgba(15, 23, 42, 0.98);
       backdrop-filter: blur(20px);
-      z-index: 900;
+      z-index: 10000;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 24px;
-      opacity: 0;
+      padding: 80px 24px;
+      transform: translateX(100%);
       visibility: hidden;
-      transform: translateY(-20px);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
     }
 
     .mobile-menu.open {
-      opacity: 1;
+      transform: translateX(0);
       visibility: visible;
-      transform: translateY(0);
     }
 
     .mobile-menu a {
@@ -2239,6 +2246,13 @@
 
       .hero-visual {
         display: none;
+      }
+
+      .hero-bg::after {
+        right: -10%;
+        top: 40%;
+        width: 100vw;
+        height: 100vw;
       }
 
       .hero-content {
@@ -2482,6 +2496,13 @@
       .footer-brand h2 {
         font-size: 18px;
       }
+
+      /* GLOBAL CONTAINMENT */
+      * {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+      }
     }
   </style>
 </head>
@@ -2658,7 +2679,7 @@
   <section class="process" id="process">
     <div class="reveal" style="text-align:center;">
       <div class="section-label" style="justify-content:center;">How We Work</div>
-      <h2 class="section-title" style="max-width:none; text-align:center;">A structured approach from <span
+      <h2 class="section-title" style="text-align:center;">A structured approach from <span
           class="accent">brief to launch</span></h2>
     </div>
     <div class="process-grid process-steps reveal" id="processGrid">
@@ -2895,14 +2916,14 @@
     <!-- Header for Presence (landing-2 style) -->
     <div class="map-section-inner reveal" style="text-align:center; margin-bottom:0;">
       <div class="section-label" id="presenceLabel" style="justify-content:center;">Our Presence</div>
-      <h2 class="section-title" id="presenceTitle" style="text-align:center; max-width:none;">6 Markets. One <span
+      <h2 class="section-title" id="presenceTitle" style="text-align:center;">6 Markets. One <span
           class="accent">standard.</span></h2>
       <p class="map-subtitle" id="presenceSubtitle">From Cairo to San Francisco — delivering technology infrastructure
         across the Middle East, North Africa, Europe, and the Americas.</p>
     </div>
 
     <!-- Map Container (Prescene) -->
-    <div style="max-width:1200px; margin:0 auto; padding:0 60px;">
+    <div style="max-width:1200px; margin:0 auto; padding:0 clamp(20px, 5vw, 60px);">
       <div class="world-map-wrap reveal" id="worldMapWrap">
         <svg id="worldMapSvg"></svg>
         <div id="mapPins"></div>
@@ -2912,7 +2933,7 @@
     <!-- Markets block (original landing style) -->
     <div class="reveal" style="text-align:center; margin-top: 100px;">
       <div class="section-label" style="justify-content:center;">Where We Operate</div>
-      <h2 class="section-title" style="text-align:center; max-width:none;">Regional <span
+      <h2 class="section-title" style="text-align:center;">Regional <span
           class="accent">Presence.</span></h2>
     </div>
     <div class="market-chips reveal visible" id="marketsGrid">
@@ -2924,7 +2945,7 @@
   <section class="brands" id="brands">
     <div class="brands-header reveal">
       <div class="section-label" style="justify-content:center;">Trusted By</div>
-      <h2 class="section-title" style="text-align:center; max-width:none;">Brands that <span class="accent">trust
+      <h2 class="section-title" style="text-align:center;">Brands that <span class="accent">trust
           us.</span></h2>
     </div>
     <div class="brands-grid brands-logo-grid reveal" id="brandsGrid">
