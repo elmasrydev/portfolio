@@ -105,12 +105,12 @@
       flex-direction: row !important;
       align-items: center !important;
       justify-content: space-between !important;
-      /* gap: 60px; */
       padding: 140px 60px 100px;
       position: relative;
       overflow: hidden;
       background: var(--navy);
       color: var(--white);
+      max-width: 100%;
     }
 
     .hero-content {
@@ -152,6 +152,7 @@
       top: 0;
       left: 0;
       right: 0;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -160,8 +161,7 @@
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       animation: fadeDown 0.7s ease both;
-      z-index: 1000;
-      /* Ensure nav is always on top for the hamburger */
+      z-index: 10000;
     }
 
     .nav-logo img {
@@ -415,6 +415,7 @@
       letter-spacing: 2.5px;
       text-transform: uppercase;
       color: var(--muted);
+      flex-shrink: 0;
     }
 
     .marquee-track .dot {
@@ -2112,21 +2113,20 @@
       background: rgba(15, 23, 42, 0.98);
       backdrop-filter: blur(20px);
       z-index: 10000;
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 24px;
       padding: 80px 24px;
       transform: translateX(100%);
-      visibility: hidden;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       overflow-y: auto;
     }
 
     .mobile-menu.open {
+      display: flex;
       transform: translateX(0);
-      visibility: visible;
     }
 
     .mobile-menu a {
@@ -2280,10 +2280,13 @@
       .hero-stats {
         flex-wrap: wrap;
         gap: 24px;
+        width: 100%;
+        margin-top: 40px;
       }
 
       .stat-item {
-        flex: 1 1 120px;
+        flex: 1 1 calc(50% - 12px);
+        min-width: 120px;
       }
 
       /* SERVICES */
@@ -2487,21 +2490,26 @@
 
       h2 {
         font-size: clamp(22px, 7vw, 34px) !important;
+        overflow: visible !important;
       }
 
+      .section-title {
+        overflow: visible !important;
+        width: 100% !important;
+      }
 
+      .stat-item {
+        overflow: visible !important;
+      }
 
+      .marquee-track {
+        display: flex !important;
+        width: max-content !important;
+      }
 
       /* FOOTER */
       .footer-brand h2 {
         font-size: 18px;
-      }
-
-      /* GLOBAL CONTAINMENT */
-      * {
-        max-width: 100vw !important;
-        overflow-x: hidden !important;
-        box-sizing: border-box !important;
       }
     }
   </style>
