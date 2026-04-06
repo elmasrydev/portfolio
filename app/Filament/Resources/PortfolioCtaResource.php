@@ -26,7 +26,11 @@ class PortfolioCtaResource extends Resource
                 Forms\Components\TextInput::make('heading'),
                 Forms\Components\Textarea::make('description'),
                 Forms\Components\TextInput::make('button_text'),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('portfolio_pdf')->collection('portfolio_pdf')->label('Portfolio PDF'),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('portfolio_pdf')
+                    ->collection('portfolio_pdf')
+                    ->label('Portfolio PDF')
+                    ->acceptedFileTypes(['application/pdf'])
+                    ->maxSize(102400),
                 Forms\Components\Toggle::make('is_active')->default(true),
             ]);
     }
